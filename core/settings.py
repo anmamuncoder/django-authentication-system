@@ -15,6 +15,15 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG',default=False,cast=bool)
 
+# Allow all domains (development purposes)
+CORS_ALLOW_ALL_ORIGINS = True
+
+# OR restrict to specific domains (recommended for production)
+# CORS_ALLOWED_ORIGINS = [
+#     "https://example.com",
+#     "https://sub.example.com",
+# ]
+
 ALLOWED_HOSTS = []
 
 INSTALLED_LIBRARIES = [
@@ -25,6 +34,7 @@ INSTALLED_LIBRARIES = [
 
 INSTALLED_APPS = (
     [
+        'corsheaders',
         'django.contrib.admin',
         'django.contrib.auth',
         'django.contrib.contenttypes',
@@ -35,6 +45,9 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # Must be at the top
+    'django.middleware.common.CommonMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
