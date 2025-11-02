@@ -1,0 +1,25 @@
+###
+POST http://127.0.0.1:8000/auth/users/login/
+Authorization: Bearer <your_access_token_here>
+Content-Type: application/json 
+
+{
+    "username":"admin",
+    "password":"123"
+}
+
+###
+POST http://127.0.0.1:8000/auth/users/login/refresh/ 
+Content-Type: application/json 
+
+{
+    "refresh":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc2NDY4NTMwNCwiaWF0IjoxNzYyMDkzMzA0LCJqdGkiOiI5NzRjN2IyZjNjZTU0MDNkYjc0NTU0Mjg4MjM5MDdjNyIsInVzZXJuYW1lIjoiYWRtaW4ifQ.-jYqYy7A25IzJtnp4rIpitHjnDs8b8Be8uL7QpZkzr0" 
+}
+
+
+###
+GET http://127.0.0.1:8000/auth/users/
+  
+###
+GET http://127.0.0.1:8000/auth/users/me/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjkzMDIxLCJpYXQiOjE3NjIwODgyMjEsImp0aSI6IjQ5NTM2MzQ0ODYxYzQ2OGE4ZTA2Yjg0MDUxNDhmYjA4IiwidXNlcm5hbWUiOiJhZG1pbiJ9.g-vPZOwNwc79sCN7xAyhfILqgo3Ez0AB1a8RUruyT10

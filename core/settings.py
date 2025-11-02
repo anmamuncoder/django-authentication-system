@@ -43,6 +43,7 @@ CUSTOM_APPS = [
 INSTALLED_LIBRARIES = [
     "rest_framework", 
     "drf_spectacular",
+    'rest_framework_simplejwt.token_blacklist',
 ]
 
 # Application definition
@@ -194,6 +195,8 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ("Bearer",), 
     'USER_ID_FIELD': "username",
     'USER_ID_CLAIM': "username",
+    'ROTATE_REFRESH_TOKENS': True, # Issue a new refresh token every time the old one is used
+    'BLACKLIST_AFTER_ROTATION': True, # Old refresh token is blacklisted immediately after rotation
 }
 
 # settings.py

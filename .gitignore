@@ -56,11 +56,7 @@ dist/
 
 # Local settings
 local_settings.py
-
-# Ignore REST Client request files
-*.http
-
-
+  
 # ---- Django Migrations ----
 # Track migration .py files, but ignore cache/compiled files
 */migrations/__pycache__/
