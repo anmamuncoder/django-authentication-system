@@ -36,6 +36,10 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 ALLOWED_HOSTS = []
 
+CUSTOM_APPS = [
+    'apps.users',
+]
+
 INSTALLED_LIBRARIES = [
     "rest_framework", 
     "drf_spectacular",
@@ -53,7 +57,9 @@ INSTALLED_APPS = (
         'django.contrib.sessions',
         'django.contrib.messages',
         'django.contrib.staticfiles',
-    ] + INSTALLED_LIBRARIES
+    ] 
+    + INSTALLED_LIBRARIES
+    + CUSTOM_APPS
 )
 
 MIDDLEWARE = [
