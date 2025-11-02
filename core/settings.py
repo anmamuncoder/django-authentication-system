@@ -62,6 +62,8 @@ INSTALLED_APPS = (
     + CUSTOM_APPS
 )
 
+AUTH_USER_MODEL = 'users.User' # app_name.ModelName
+
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',  # Must be at the top
     'django.middleware.common.CommonMiddleware',
