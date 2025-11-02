@@ -66,3 +66,7 @@ local_settings.py
 */migrations/__pycache__/
 */migrations/*.pyc
 */migrations/*.pyo
+
+# Ignore Django migration files
+*/migrations/*.py
+!*/migrations/__init__.py  # keep __init__.py to recognize the folder as a package

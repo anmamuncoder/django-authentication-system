@@ -17,10 +17,16 @@ drf_spectacular_urls = [
     path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]
 
+apps_urls = [
+    path('auth/',include('apps.users.urls')),
+]
+
 urlpatterns = (
     [
         path('admin/', admin.site.urls),
-    ] + drf_spectacular_urls
+    ] 
+    + drf_spectacular_urls
+    + apps_urls
 )
 
 if settings.DEBUG:
