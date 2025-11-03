@@ -45,4 +45,23 @@ Content-Type: application/json
   "old_password": "123",  
   "new_password": "123"  
 }
- 
+
+
+###
+POST http://127.0.0.1:8000/auth/me/email/request-verify/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNzc5MzQyLCJpYXQiOjE3NjIxNzQ1NDIsImp0aSI6IjM3Mzc2M2FkNDlkYjRkNTE5MGU2OTIxNGU0OTY0MjdlIiwidXNlcm5hbWUiOiJhZG1pbjEwIiwiaWQiOjE1LCJlbWFpbCI6ImFubWFtdW4wQGdtYWlsLmNvbSIsImlzX3Bob25lX3ZlcmlmeSI6ZmFsc2UsImlzX2VtYWlsX3ZlcmlmeSI6ZmFsc2V9.z0cD8SCd1htD-gOanduyHFXqleOyj5P03X7VOeTljxY
+Content-Type: application/json 
+
+{  
+  "email": "anmamun0@gmail.com"  
+}
+
+###
+POST http://127.0.0.1:8000/auth/me/email/conform-verify/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNzc5MzQyLCJpYXQiOjE3NjIxNzQ1NDIsImp0aSI6IjM3Mzc2M2FkNDlkYjRkNTE5MGU2OTIxNGU0OTY0MjdlIiwidXNlcm5hbWUiOiJhZG1pbjEwIiwiaWQiOjE1LCJlbWFpbCI6ImFubWFtdW4wQGdtYWlsLmNvbSIsImlzX3Bob25lX3ZlcmlmeSI6ZmFsc2UsImlzX2VtYWlsX3ZlcmlmeSI6ZmFsc2V9.z0cD8SCd1htD-gOanduyHFXqleOyj5P03X7VOeTljxY
+Content-Type: application/json 
+
+{  
+  "email": "anmamun0@gmail.com",  
+  "otp": "642179"  
+}
