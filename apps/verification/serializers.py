@@ -34,6 +34,10 @@ class ForgotPasswordOTPRequestSerializer(serializers.Serializer):
         if not User.objects.filter(email=email).exists():
             raise serializers.ValidationError("No account found with this email.")
         return email
+
+# Verify OPT
+class ForgotPasswordOTPVerifySerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    otp = serializers.CharField(max_length=6)
+
  
-
-

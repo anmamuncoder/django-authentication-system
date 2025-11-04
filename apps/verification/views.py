@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from rest_framework import status
 from .serializers import ( EmailOTPCreateSerializer, EmailOTPVerifySerializer, 
-                          ForgotPasswordOTPRequestSerializer )
+                          ForgotPasswordOTPRequestSerializer,ForgotPasswordOTPVerifySerializer )
 from .models import EmailOTP
 from apps.verification.services.email_otp import OTPHandler
 from apps.users.models import User
@@ -71,4 +71,24 @@ class ForgotPasswordSendOTPView(APIView):
 
         return Response({"detail": "OTP sent to email"}, status=200)
     
+# Verify OPT
+class ForgotPasswordVerifyOTPView(APIView):
+    permission_classes = [AllowAny]
+    serializer_class = ForgotPasswordOTPVerifySerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        email = serializer.validated_data['email']
+        otp = serializer.validated_data['otp']
+
+        user = User.objects.get(email=email)
+
+        success, message = otp_handler.verify_otp(user, otp)
+        if not success:
+            return Response({"detail": message}, status=400)
+
+        return Response({"detail": message}, status=200)
+ 
  
