@@ -1,6 +1,8 @@
 from django.urls import path , include
 from .views import SendOTPView,VerifyOTPView ,ForgotPasswordSendOTPView, ForgotPasswordVerifyOTPView,ResetPasswordView
 
+app_name = 'verification' 
+
 urlpatterns = (
     [
         path('me/email/request-verify/',SendOTPView.as_view(),name='request-verify'),

@@ -18,8 +18,8 @@ drf_spectacular_urls = [
 ]
 
 apps_urls = [
-    path('auth/',include('apps.users.urls'),name='auth-user'),
-    path('auth/',include('apps.verification.urls'),name='auth-verify'),
+    path('auth/',include('apps.users.urls'),name='user'),
+    path('auth/',include('apps.verification.urls'),name='verification'),
 ]
 
 urlpatterns = (
