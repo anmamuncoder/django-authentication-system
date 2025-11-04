@@ -68,3 +68,13 @@ Content-Type: application/json
 
 // Celery windows Run: celery -A core worker --loglevel=INFO -P solo  
 
+
+###
+POST http://127.0.0.1:8000/auth/user/forgot-password/send-otp/
+Content-Type: application/json 
+
+{  
+  "email": "anmamun0@gmail.com" 
+}
+
+ 

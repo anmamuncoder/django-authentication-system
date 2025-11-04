@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import EmailOTP
+from apps.users.models import User 
 
 class EmailOTPCreateSerializer(serializers.Serializer):
     email = serializers.EmailField()
@@ -19,3 +20,20 @@ class EmailOTPCreateSerializer(serializers.Serializer):
 class EmailOTPVerifySerializer(serializers.Serializer):
     email = serializers.EmailField()
     otp = serializers.CharField(max_length=6)
+
+
+# ------------------------------------------------
+# Forget Password for Anonimous User
+# ------------------------------------------------
+
+# Request for OTP 
+class ForgotPasswordOTPRequestSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+
+    def validate_email(self, email): 
+        if not User.objects.filter(email=email).exists():
+            raise serializers.ValidationError("No account found with this email.")
+        return email
+ 
+
+

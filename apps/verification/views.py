@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated,AllowAny
 from rest_framework import status
-from .serializers import EmailOTPCreateSerializer, EmailOTPVerifySerializer
+from .serializers import ( EmailOTPCreateSerializer, EmailOTPVerifySerializer, 
+                          ForgotPasswordOTPRequestSerializer )
 from .models import EmailOTP
 from apps.verification.services.email_otp import OTPHandler
 from apps.users.models import User
@@ -47,3 +48,27 @@ class VerifyOTPView(APIView):
             return Response({"detail": message}, status=status.HTTP_400_BAD_REQUEST)
 
         return Response({"detail": message}, status=status.HTTP_200_OK)
+
+
+
+# ------------------------------------------------
+# Forget Password For Anonimous User
+# ------------------------------------------------
+
+# Request for OTP : 
+class ForgotPasswordSendOTPView(APIView):
+    permission_classes = [AllowAny]
+    serializer_class = ForgotPasswordOTPRequestSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        email = serializer.validated_data['email']
+        user = User.objects.get(email=email)
+
+        otp_handler.send_otp_use_celery(user) 
+
+        return Response({"detail": "OTP sent to email"}, status=200)
+    
+ 
