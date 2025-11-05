@@ -43,7 +43,7 @@ class VerifyOTPView(APIView):
         except User.DoesNotExist:
             return Response({"detail": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
-        success, message = otp_handler.send_otp_use_celery(user, otp)
+        success, message = otp_handler.verify_otp(user, otp)
         if not success:
             return Response({"detail": message}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -67,7 +67,7 @@ class ForgotPasswordSendOTPView(APIView):
         email = serializer.validated_data['email']
         user = User.objects.get(email=email)
 
-        otp_handler.send_otp_use_celery(user) 
+        otp_handler.send_otp(user) 
 
         return Response({"detail": "OTP sent to email"}, status=200)
     

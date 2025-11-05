@@ -11,6 +11,9 @@ class VerifyUserStatus:
 
         # don't require authentication or email verification
         allowed_paths = [ 
+            reverse('schema'),
+            reverse('redoc'),
+            reverse('swagger-ui'),
             reverse('users:login'),
             reverse('users:login-refresh'),
             reverse('users:register'),

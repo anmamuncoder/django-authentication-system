@@ -1,0 +1,116 @@
+
+
+// API Documentation
+###
+GET http://127.0.0.1:8000/api/schema/ 
+###
+GET http://127.0.0.1:8000/api/docs/
+###
+GET http://127.0.0.1:8000/api/redoc/
+
+
+ 
+###
+PUT http://127.0.0.1:8000/auth/users/me/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyOTM5MDM2LCJpYXQiOjE3NjIzMzQyMzYsImp0aSI6Ijk0MGQxYzg4MWViNDQwYTdhMjE2YzJmZmI2ZmQ1NjAzIiwidXNlcm5hbWUiOiJhZG1pbiIsImlkIjoiM2E3ODA3NGYtYzYxNy00ZWMzLTllYzAtZTA5YTVjMzdiZWM4IiwiZW1haWwiOiJhbm1hbXVuMEBnbWFpbC5jb20iLCJpc19waG9uZV92ZXJpZnkiOmZhbHNlLCJpc19lbWFpbF92ZXJpZnkiOmZhbHNlfQ.th6_s1MPN9oJCW3R0vJC0jan9BLXElb8CTin3g92Xz4
+Content-Type: application/json 
+
+{  
+  "username": "admin",
+  "first_name": "Hello World",
+  "last_name": "",
+  "email": "aasasdfdf@gmail.com"
+}
+
+
+###
+POST http://127.0.0.1:8000/auth/users/register/
+Content-Type: application/json 
+
+{
+    "username":"admin",
+    "first_name": "Nur mamun",
+    "password":"123",
+    "email":"anmamun0@gmail.com"
+}
+###
+POST http://127.0.0.1:8000/auth/users/login/ 
+Content-Type: application/json 
+
+{
+    "username":"admin1",
+    "password":"11a11@asdDED"
+}
+
+###
+POST http://127.0.0.1:8000/auth/users/login/refresh/ 
+Content-Type: application/json 
+
+{
+    "refresh":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc2NDg1MjE1NSwiaWF0IjoxNzYyMjYwMTU1LCJqdGkiOiIyOTk0MDZmZTAzM2M0ZDU1ODhmM2U4NTY2MGYyOWZlMCIsInVzZXJuYW1lIjoiYWRtaW4xIn0.nBlxKCkSonu4QroV8OWvG2of3vSApq7aK-AJZyQSU28"
+}
+
+
+###
+POST http://127.0.0.1:8000/auth/me/email/request-verify/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyOTM5MDM2LCJpYXQiOjE3NjIzMzQyMzYsImp0aSI6Ijk0MGQxYzg4MWViNDQwYTdhMjE2YzJmZmI2ZmQ1NjAzIiwidXNlcm5hbWUiOiJhZG1pbiIsImlkIjoiM2E3ODA3NGYtYzYxNy00ZWMzLTllYzAtZTA5YTVjMzdiZWM4IiwiZW1haWwiOiJhbm1hbXVuMEBnbWFpbC5jb20iLCJpc19waG9uZV92ZXJpZnkiOmZhbHNlLCJpc19lbWFpbF92ZXJpZnkiOmZhbHNlfQ.th6_s1MPN9oJCW3R0vJC0jan9BLXElb8CTin3g92Xz4
+Content-Type: application/json 
+
+{  
+  "email": "anmamun0@gmail.com"  
+}
+
+
+###
+POST http://127.0.0.1:8000/auth/me/email/conform-verify/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyOTM5MDM2LCJpYXQiOjE3NjIzMzQyMzYsImp0aSI6Ijk0MGQxYzg4MWViNDQwYTdhMjE2YzJmZmI2ZmQ1NjAzIiwidXNlcm5hbWUiOiJhZG1pbiIsImlkIjoiM2E3ODA3NGYtYzYxNy00ZWMzLTllYzAtZTA5YTVjMzdiZWM4IiwiZW1haWwiOiJhbm1hbXVuMEBnbWFpbC5jb20iLCJpc19waG9uZV92ZXJpZnkiOmZhbHNlLCJpc19lbWFpbF92ZXJpZnkiOmZhbHNlfQ.th6_s1MPN9oJCW3R0vJC0jan9BLXElb8CTin3g92Xz4
+Content-Type: application/json 
+
+{  
+  "email": "anmamun0@gmail.com",  
+  "otp": "220325"  
+}
+
+
+###
+POST http://127.0.0.1:8000/auth/users/me/change-password/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyOTM5MDM2LCJpYXQiOjE3NjIzMzQyMzYsImp0aSI6Ijk0MGQxYzg4MWViNDQwYTdhMjE2YzJmZmI2ZmQ1NjAzIiwidXNlcm5hbWUiOiJhZG1pbiIsImlkIjoiM2E3ODA3NGYtYzYxNy00ZWMzLTllYzAtZTA5YTVjMzdiZWM4IiwiZW1haWwiOiJhbm1hbXVuMEBnbWFpbC5jb20iLCJpc19waG9uZV92ZXJpZnkiOmZhbHNlLCJpc19lbWFpbF92ZXJpZnkiOmZhbHNlfQ.th6_s1MPN9oJCW3R0vJC0jan9BLXElb8CTin3g92Xz4
+Content-Type: application/json 
+
+{  
+  "old_password": "00a00@asdDED",  
+  "new_password": "NewStrongPass123!"  
+}
+
+
+
+
+
+###
+POST http://127.0.0.1:8000/auth/user/forgot-password/send-otp/
+Content-Type: application/json 
+
+{  
+  "email": "anmamun0@gmail.com" 
+}
+
+###
+POST http://127.0.0.1:8000/auth/user/forgot-password/verify-otp/
+Content-Type: application/json 
+
+{  
+  "email": "anmamun0@gmail.com",
+  "otp": "808100" 
+}
+
+###
+POST http://127.0.0.1:8000/auth/user/forgot-password/reset/
+Content-Type: application/json 
+
+{  
+  "email": "anmamun0@gmail.com",
+  "otp": "808100",
+  "new_password": "11a11@asdDED" 
+}
+
+ 

@@ -3,11 +3,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny 
 from rest_framework_simplejwt.tokens import RefreshToken
- 
+import uuid
+
 class BaseRegistrationView(APIView):
     """
     Base registration handler for creating users and returning JWT tokens.
-
     Usage:
         - Set `serializer_class`
         - Define `response_keys` to include user fields or tokens in response
@@ -35,10 +35,13 @@ class BaseRegistrationView(APIView):
         refresh = RefreshToken.for_user(user)
         access_token = refresh.access_token
 
-        # Add custom fields to access token
         for field in self.access_keys:
             if hasattr(user, field):
-                access_token[field] = getattr(user, field)
+                value = getattr(user, field)
+                # Convert UUIDs and other non-JSON-serializable types to string
+                if isinstance(value, (uuid.UUID,)):
+                    value = str(value)
+                access_token[field] = value
 
         # Prepare response json keys
         response_data = {}

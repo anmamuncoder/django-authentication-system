@@ -16,7 +16,12 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username','first_name','last_name','email','phone_number','photo')
-
+    
+    def validate_email(self, value):
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("This email is already taken.")
+        return value
+    
     def update(self, instance, validated_data):
         old_email = instance.email
         user = super().update(instance, validated_data)
