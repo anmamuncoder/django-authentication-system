@@ -19,7 +19,7 @@ Content-Type: application/json
   "username": "admin",
   "first_name": "Hello World",
   "last_name": "",
-  "email": "aasasdfdf@gmail.com"
+  "email": "anmamun0@gmail.com"
 }
 
 
@@ -74,7 +74,6 @@ Content-Type: application/json
 
 ###
 POST http://127.0.0.1:8000/auth/users/me/change-password/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyOTM5MDM2LCJpYXQiOjE3NjIzMzQyMzYsImp0aSI6Ijk0MGQxYzg4MWViNDQwYTdhMjE2YzJmZmI2ZmQ1NjAzIiwidXNlcm5hbWUiOiJhZG1pbiIsImlkIjoiM2E3ODA3NGYtYzYxNy00ZWMzLTllYzAtZTA5YTVjMzdiZWM4IiwiZW1haWwiOiJhbm1hbXVuMEBnbWFpbC5jb20iLCJpc19waG9uZV92ZXJpZnkiOmZhbHNlLCJpc19lbWFpbF92ZXJpZnkiOmZhbHNlfQ.th6_s1MPN9oJCW3R0vJC0jan9BLXElb8CTin3g92Xz4
 Content-Type: application/json 
 
 {  
