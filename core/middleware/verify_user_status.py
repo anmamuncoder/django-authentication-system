@@ -1,6 +1,8 @@
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse
+from rest_framework import status
+from rest_framework.response import Response
 
 class VerifyUserStatus:
     def __init__(self,get_response):
@@ -35,14 +37,13 @@ class VerifyUserStatus:
         # Unauthenticated ---- block API or redirect web
         if not user or not user.is_authenticated:
             if is_api:
-                return JsonResponse({"detail": "Authentication credentials were not provided."}, status=401)
-            return redirect(f"{reverse('users:login')}?next={request.path}")
-    
+                return JsonResponse({"detail": "Authentication credentials were not provided."}, status=status.HTTP_401_UNAUTHORIZED)
+
         # Authenticated but not email-verify -- block response
         if not getattr(user, 'is_email_verify', False):
             if is_api:
-                return JsonResponse({"detail": "Email not verified. Please verify your email first."}, status=403)
-            return redirect(f"{reverse('verification:request-verify')}?next={request.path}")
+                return JsonResponse({"detail": "Email not verified. Please verify your email first."}, status=status.HTTP_403_FORBIDDEN)
+
  
         return response
 

@@ -59,7 +59,7 @@ class CategoryView(APIView):
             return Response({'detail':f"This Category already useing {cat.inventory_count}, You can't delete that!"},status=status.HTTP_403_FORBIDDEN)
         
         cat.delete()
-        return Response({'detail': 'Category deleted successfully.'}, status=status.HTTP_200_OK)
+        return Response({'detail': 'Category deleted successfully.'}, status=status.HTTP_204_NO_CONTENT)
 
 # --------------------------
 # Inventory View  : 

@@ -3,7 +3,7 @@ from .views import CategoryView,InventoryView
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register('inventory',InventoryView)
+router.register('inventory',InventoryView,basename='inventory')
 
 app_name = 'inventory' 
 urlpatterns = (
