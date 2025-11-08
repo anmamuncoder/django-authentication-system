@@ -95,3 +95,80 @@ Content-Type: application/json
   "otp": "714642",
   "new_password": "00a00@asdDED" 
 }
+
+
+# -----------------Inventory App----------------------------------
+
+
+# --------------------------
+# Category urls
+# --------------------------
+###
+GET http://127.0.0.1:8020/category/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzMDQ1NTYwLCJpYXQiOjE3NjI0NDA3NjAsImp0aSI6IjE4OWM4MDIzYmQxNzQyNDg4Nzg3ZWQ4NmQ2YTNjOGM5IiwidXNlcm5hbWUiOiJhZG1pbjEwIiwiaWQiOiIyMzhiMGZlYi02YTBhLTQ0M2YtOGJkNS0wMWM0NTljYzlkNmEiLCJlbWFpbCI6ImFubWFtdW4wQGdtYWlsLmNvbSIsImlzX3Bob25lX3ZlcmlmeSI6ZmFsc2UsImlzX2VtYWlsX3ZlcmlmeSI6ZmFsc2V9.zGcOCc7lusPltLJNpBxPTaWXyuMSjUhR9oM7ywrxYkE
+
+###
+GET http://127.0.0.1:8020/category/661c05cc-4041-4248-8cbf-fd00c18473f7/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzMDQ1NTYwLCJpYXQiOjE3NjI0NDA3NjAsImp0aSI6IjE4OWM4MDIzYmQxNzQyNDg4Nzg3ZWQ4NmQ2YTNjOGM5IiwidXNlcm5hbWUiOiJhZG1pbjEwIiwiaWQiOiIyMzhiMGZlYi02YTBhLTQ0M2YtOGJkNS0wMWM0NTljYzlkNmEiLCJlbWFpbCI6ImFubWFtdW4wQGdtYWlsLmNvbSIsImlzX3Bob25lX3ZlcmlmeSI6ZmFsc2UsImlzX2VtYWlsX3ZlcmlmeSI6ZmFsc2V9.zGcOCc7lusPltLJNpBxPTaWXyuMSjUhR9oM7ywrxYkE
+
+###
+POST http://127.0.0.1:8020/category/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzMDQ1NTYwLCJpYXQiOjE3NjI0NDA3NjAsImp0aSI6IjE4OWM4MDIzYmQxNzQyNDg4Nzg3ZWQ4NmQ2YTNjOGM5IiwidXNlcm5hbWUiOiJhZG1pbjEwIiwiaWQiOiIyMzhiMGZlYi02YTBhLTQ0M2YtOGJkNS0wMWM0NTljYzlkNmEiLCJlbWFpbCI6ImFubWFtdW4wQGdtYWlsLmNvbSIsImlzX3Bob25lX3ZlcmlmeSI6ZmFsc2UsImlzX2VtYWlsX3ZlcmlmeSI6ZmFsc2V9.zGcOCc7lusPltLJNpBxPTaWXyuMSjUhR9oM7ywrxYkE
+Content-Type: application/json 
+
+{  
+  "name": "Alu (edit)"  
+}
+
+###
+PATCH  http://127.0.0.1:8020/category/c0958cad-0afb-4a6d-8e98-fc28ca75c9ba/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzMDQ1NTYwLCJpYXQiOjE3NjI0NDA3NjAsImp0aSI6IjE4OWM4MDIzYmQxNzQyNDg4Nzg3ZWQ4NmQ2YTNjOGM5IiwidXNlcm5hbWUiOiJhZG1pbjEwIiwiaWQiOiIyMzhiMGZlYi02YTBhLTQ0M2YtOGJkNS0wMWM0NTljYzlkNmEiLCJlbWFpbCI6ImFubWFtdW4wQGdtYWlsLmNvbSIsImlzX3Bob25lX3ZlcmlmeSI6ZmFsc2UsImlzX2VtYWlsX3ZlcmlmeSI6ZmFsc2V9.zGcOCc7lusPltLJNpBxPTaWXyuMSjUhR9oM7ywrxYkE
+Content-Type: application/json 
+
+{  
+  "name": "Alu (edit)"  
+}
+
+###
+DELETE http://127.0.0.1:8020/category/94369ba8-8197-463b-b7e7-969977dc82a3/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzMDQ1NTYwLCJpYXQiOjE3NjI0NDA3NjAsImp0aSI6IjE4OWM4MDIzYmQxNzQyNDg4Nzg3ZWQ4NmQ2YTNjOGM5IiwidXNlcm5hbWUiOiJhZG1pbjEwIiwiaWQiOiIyMzhiMGZlYi02YTBhLTQ0M2YtOGJkNS0wMWM0NTljYzlkNmEiLCJlbWFpbCI6ImFubWFtdW4wQGdtYWlsLmNvbSIsImlzX3Bob25lX3ZlcmlmeSI6ZmFsc2UsImlzX2VtYWlsX3ZlcmlmeSI6ZmFsc2V9.zGcOCc7lusPltLJNpBxPTaWXyuMSjUhR9oM7ywrxYkE
+ 
+
+# --------------------------
+# Inventory urls
+# --------------------------
+###
+GET http://127.0.0.1:8020/inventory/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzMDQ1NTYwLCJpYXQiOjE3NjI0NDA3NjAsImp0aSI6IjE4OWM4MDIzYmQxNzQyNDg4Nzg3ZWQ4NmQ2YTNjOGM5IiwidXNlcm5hbWUiOiJhZG1pbjEwIiwiaWQiOiIyMzhiMGZlYi02YTBhLTQ0M2YtOGJkNS0wMWM0NTljYzlkNmEiLCJlbWFpbCI6ImFubWFtdW4wQGdtYWlsLmNvbSIsImlzX3Bob25lX3ZlcmlmeSI6ZmFsc2UsImlzX2VtYWlsX3ZlcmlmeSI6ZmFsc2V9.zGcOCc7lusPltLJNpBxPTaWXyuMSjUhR9oM7ywrxYkE
+
+
+###
+GET http://127.0.0.1:8020/inventory/5d00929a-3ce0-4b8f-b773-5b332cba1cc1/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzMDQ1NTYwLCJpYXQiOjE3NjI0NDA3NjAsImp0aSI6IjE4OWM4MDIzYmQxNzQyNDg4Nzg3ZWQ4NmQ2YTNjOGM5IiwidXNlcm5hbWUiOiJhZG1pbjEwIiwiaWQiOiIyMzhiMGZlYi02YTBhLTQ0M2YtOGJkNS0wMWM0NTljYzlkNmEiLCJlbWFpbCI6ImFubWFtdW4wQGdtYWlsLmNvbSIsImlzX3Bob25lX3ZlcmlmeSI6ZmFsc2UsImlzX2VtYWlsX3ZlcmlmeSI6ZmFsc2V9.zGcOCc7lusPltLJNpBxPTaWXyuMSjUhR9oM7ywrxYkE
+
+
+###
+POST http://127.0.0.1:8020/inventory/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzMDQ1NTYwLCJpYXQiOjE3NjI0NDA3NjAsImp0aSI6IjE4OWM4MDIzYmQxNzQyNDg4Nzg3ZWQ4NmQ2YTNjOGM5IiwidXNlcm5hbWUiOiJhZG1pbjEwIiwiaWQiOiIyMzhiMGZlYi02YTBhLTQ0M2YtOGJkNS0wMWM0NTljYzlkNmEiLCJlbWFpbCI6ImFubWFtdW4wQGdtYWlsLmNvbSIsImlzX3Bob25lX3ZlcmlmeSI6ZmFsc2UsImlzX2VtYWlsX3ZlcmlmeSI6ZmFsc2V9.zGcOCc7lusPltLJNpBxPTaWXyuMSjUhR9oM7ywrxYkE
+Content-Type: application/json 
+
+{  
+    "name": "PHone - 1",
+    "priority": "High", 
+    "number": 2, 
+    "category": "04a3d02e-beab-4478-ba39-b6154bc29658"  
+}
+###
+PATCH  http://127.0.0.1:8020/inventory/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzMDQ1NTYwLCJpYXQiOjE3NjI0NDA3NjAsImp0aSI6IjE4OWM4MDIzYmQxNzQyNDg4Nzg3ZWQ4NmQ2YTNjOGM5IiwidXNlcm5hbWUiOiJhZG1pbjEwIiwiaWQiOiIyMzhiMGZlYi02YTBhLTQ0M2YtOGJkNS0wMWM0NTljYzlkNmEiLCJlbWFpbCI6ImFubWFtdW4wQGdtYWlsLmNvbSIsImlzX3Bob25lX3ZlcmlmeSI6ZmFsc2UsImlzX2VtYWlsX3ZlcmlmeSI6ZmFsc2V9.zGcOCc7lusPltLJNpBxPTaWXyuMSjUhR9oM7ywrxYkE
+Content-Type: application/json 
+
+{  
+    "name": "PHone - 13", 
+}
+
+###
+DELETE http://127.0.0.1:8020/inventory/5d00929a-3ce0-4b8f-b773-5b332cba1cc1/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzMDQ1NTYwLCJpYXQiOjE3NjI0NDA3NjAsImp0aSI6IjE4OWM4MDIzYmQxNzQyNDg4Nzg3ZWQ4NmQ2YTNjOGM5IiwidXNlcm5hbWUiOiJhZG1pbjEwIiwiaWQiOiIyMzhiMGZlYi02YTBhLTQ0M2YtOGJkNS0wMWM0NTljYzlkNmEiLCJlbWFpbCI6ImFubWFtdW4wQGdtYWlsLmNvbSIsImlzX3Bob25lX3ZlcmlmeSI6ZmFsc2UsImlzX2VtYWlsX3ZlcmlmeSI6ZmFsc2V9.zGcOCc7lusPltLJNpBxPTaWXyuMSjUhR9oM7ywrxYkE
+ 
+
