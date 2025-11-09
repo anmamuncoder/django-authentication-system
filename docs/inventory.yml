@@ -1,0 +1,367 @@
+openapi: 3.0.4
+info:
+  title: Inventory APPs - Expanded Version
+  version: 1.0.12
+  description: >
+    Fully expanded OpenAPI specification for the Petstore API.  
+    This version includes `components.schemas` but does not use `$ref:` anywhere.
+
+servers:
+  - url: https://anmamun0.django-authentication-system.io
+
+tags:
+  - name: category
+    description: Category model
+  - name: inventory
+    description: Inventory stock model
+
+paths:
+  # ---------------- Category ---------------
+  /category:
+    get:
+      tags: [category]
+      summary: Get all categories
+      description: Retrieve a list of categories
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          description: Bearer token for authentication
+          schema:
+            type: string
+            example: "Bearer <token>"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 10
+                    user:
+                      type: string
+                      format: uuid
+                      example: 661c05cc-4041-4248-8cbf-fd00c18473f7
+                    name:
+                      type: string
+                      example: "Electronic"
+                    created_at:
+                      type: string
+                      example: "2025-11-09T12:00:00Z"
+        '500':
+          description: Server error
+
+    post:
+      tags: [category]
+      summary: Add a new category
+      operationId: addCategory
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Electronic"
+      responses:
+        '201':
+          description: Category created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 10
+                  user:
+                    type: string
+                    format: uuid
+                    example: 661c05cc-4041-4248-8cbf-fd00c18473f7
+                  name:
+                    type: string
+                    example: "Electronic"
+                  created_at:
+                    type: string
+                    example: "2025-11-09T12:00:00Z"
+        '400':
+          description: Invalid input
+
+  /category/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Category ID
+        schema:
+          type: integer
+          example: 1
+    put:
+      tags: [category]
+      summary: Update an existing category
+      operationId: updateCategory
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Updated Electronic"
+      responses:
+        '200':
+          description: Category updated
+        '404':
+          description: Category not found
+
+    patch:
+      tags: [category]
+      summary: Partially update a category
+      operationId: partialUpdateCategory
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Partially Updated Electronic"
+      responses:
+        '200':
+          description: Category partially updated
+        '404':
+          description: Category not found
+
+    delete:
+      tags: [category]
+      summary: Delete a category
+      operationId: deleteCategory
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Category deleted
+        '404':
+          description: Category not found
+
+# ---------------- Inventory ----------------
+  /inventory:
+    get:
+      tags: [inventory]
+      summary: Retrieve inventory items
+      operationId: getInventory
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Inventory list
+        '500':
+          description: Server error
+
+    post:
+      tags: [inventory]
+      summary: Create inventory item
+      operationId: addInventory
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Laptop"
+                category:
+                  type: string
+                  example: "Electronic"
+                priority:
+                  type: string
+                  enum: [High, Medium, Low]
+                  example: High
+                number:
+                  type: integer
+                  example: 10
+      responses:
+        '201':
+          description: Inventory item created
+        '400':
+          description: Invalid input
+
+  /inventory/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Inventory ID
+        schema:
+          type: integer
+          example: 1
+    put:
+      tags: [inventory]
+      summary: Fully update an inventory item
+      operationId: updateInventory
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Laptop Updated"
+                category:
+                  type: string
+                  example: "Electronic"
+                priority:
+                  type: string
+                  enum: [High, Medium, Low]
+                  example: Medium
+                number:
+                  type: integer
+                  example: 15
+      responses:
+        '200':
+          description: Inventory item updated
+        '404':
+          description: Inventory item not found
+
+    patch:
+      tags: [inventory]
+      summary: Partially update an inventory item
+      operationId: partialUpdateInventory
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                priority:
+                  type: string
+                  enum: [High, Medium, Low]
+                  example: Low
+      responses:
+        '200':
+          description: Inventory item partially updated
+        '404':
+          description: Inventory item not found
+
+    delete:
+      tags: [inventory]
+      summary: Delete an inventory item
+      operationId: deleteInventory
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Inventory item deleted
+        '404':
+          description: Inventory item not found
+
+components:
+  schemas:
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 10
+        user:
+          type: string
+          format: uuid
+          example: 661c05cc-4041-4248-8cbf-fd00c18473f7
+        name:
+          type: string
+          example: "Electronic"
+        created_at:
+          type: string
+          example: "2025-11-09T12:00:00Z"
+
+    Inventory:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        user:
+          type: string
+          format: uuid
+          example: 661c05cc-4041-4248-8cbf-fd00c18473f7
+        name:
+          type: string
+          example: "Laptop"
+        category:
+          type: string
+          example: "Electronic"
+        priority:
+          type: string
+          enum: [High, Medium, Low]
+          example: High
+        number:
+          type: integer
+          example: 10
+        date:
+          type: string
+          example: "2025-11-09"
+ 
