@@ -220,3 +220,25 @@ CACHES = {
 } 
 # pip install redis:  is the Python client for Redis. It allows Python to connect to a Redis server.
 # pip install django-redis : Django-specific cache backend wrapper. It integrates Redis with Django’s cache system.
+
+
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+from sentry_sdk.integrations.celery import CeleryIntegration
+
+sentry_sdk.init(
+    dsn="https://8f91f261336114e5228cade96d265cc0@o4510338725707786.ingest.us.sentry.io/4510338823094272",
+    integrations=[DjangoIntegration(),CeleryIntegration()],
+
+    # If True, Sentry captures user info (like request.user).
+    send_default_pii=True,
+
+    # Performance monitoring. 1.0 = 100% of traces.
+    traces_sample_rate=1.0,
+
+    # Profiler sample rate. Helps track CPU/memory usage.
+    profile_session_sample_rate=1.0,
+
+    # "trace" runs profiler only during active transaction tracing.
+    profile_lifecycle="trace",
+)
