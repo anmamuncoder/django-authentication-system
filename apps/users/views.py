@@ -5,7 +5,7 @@ from .models import User
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status 
 
 from .serializers import UserSerializer  # your user serializer
 # Create your views here.
@@ -32,24 +32,32 @@ class UserView(APIView):
         return Response(serializer.data)
 
     def put(self, request, *args, **kwargs):
-        serializer = UserSerializer(request.user, data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
+        return self.update_user(request, full_update=True)
 
     def patch(self, request, *args, **kwargs):
-        serializer = UserSerializer(request.user, data=request.data, partial=True)
+        return self.update_user(request, full_update=False)
+    
+    def update_user(self, request, full_update=False): 
+        serializer = UserSerializer(request.user, data=request.data, partial=not full_update)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
+        user = serializer.save()
 
+        #  email changed
+        new_email = request.data.get('email')
+        message = "Updated successfully."
+        if new_email and new_email != user.email:
+            message = "Updated. OTP has been sent to your email for verification."
+        return Response({"user": serializer.data,"message": message},status=status.HTTP_200_OK)
+    
     def delete(self, request, *args, **kwargs):
         request.user.delete()
         return Response({"detail": "Account deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
 
     def post(self, request, *args, **kwargs):
         return Response({"detail": "POST not allowed"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
-  
+    
+
+
   
 # --------------------------
 """

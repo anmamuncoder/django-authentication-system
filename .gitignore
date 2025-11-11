@@ -57,6 +57,3 @@ dist/
 # Local settings
 local_settings.py
   
-# ---- Django Migrations ----
-# Ignore all migrations folders completely
-**/migrations/

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import User
 from django.contrib.auth import password_validation
+from apps.verification.services.otp_service import OTPService
 
 class UserRegisterSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,7 +26,7 @@ class UserSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         old_email = instance.email
         user = super().update(instance, validated_data)
-        
+        OTPService.send_otp(user, celery=False)
         new_email = validated_data.get('email')
         if new_email and new_email != old_email:  # After change email is_email_verify will false
             user.is_email_verify = False

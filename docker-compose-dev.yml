@@ -17,7 +17,7 @@ services:
   db:
     image: postgres:16.2
     volumes:
-      - django_auth_system_db:/var/lib/postgresql/data
+      - django_auth_db:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
@@ -40,5 +40,5 @@ services:
       - redis
 
 volumes:
-  django_auth_system_db:
+  django_auth_db:
   

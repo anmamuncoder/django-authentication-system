@@ -6,12 +6,11 @@ from rest_framework import status
 from .serializers import ( EmailOTPCreateSerializer, EmailOTPVerifySerializer, 
                           ForgotPasswordOTPRequestSerializer,ForgotPasswordOTPVerifySerializer,ResetPasswordSerializer )
 from .models import EmailOTP
-from apps.verification.services.email_otp import OTPHandler
+from apps.verification.services.otp_service import OTPService
 from apps.users.models import User 
 from .throttles import RequstVerifyThrottle
 # Create your views here.
- 
-otp_handler = OTPHandler(EmailOTP) 
+  
 
 class SendOTPView(APIView):
     serializer_class = EmailOTPCreateSerializer 
@@ -28,7 +27,7 @@ class SendOTPView(APIView):
         except User.DoesNotExist:
             return Response({"detail": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
-        otp_handler.send_otp(user=user,celery=False)
+        OTPService.send_otp(user=user,celery=False)
       
         return Response({"detail": "OTP sent successfully"}, status=status.HTTP_200_OK)
 
@@ -47,7 +46,7 @@ class VerifyOTPView(APIView):
         except User.DoesNotExist:
             return Response({"detail": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
-        success, message = otp_handler.verify_otp(user, otp)
+        success, message = OTPService.verify_otp(user, otp)
         if not success:
             return Response({"detail": message}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -71,7 +70,7 @@ class ForgotPasswordSendOTPView(APIView):
         email = serializer.validated_data['email']
         user = User.objects.get(email=email)
 
-        otp_handler.send_otp(user) 
+        OTPService.send_otp(user) 
 
         return Response({"detail": "OTP sent to email"}, status=200)
     
@@ -89,7 +88,7 @@ class ForgotPasswordVerifyOTPView(APIView):
 
         user = User.objects.get(email=email)
 
-        success, message = otp_handler.verify_otp(user, otp)
+        success, message = OTPService.verify_otp(user, otp)
         if not success:
             return Response({"detail": message}, status=400)
 
@@ -110,7 +109,7 @@ class ResetPasswordView(APIView):
 
         user = User.objects.get(email=email)
  
-        otp_obj = otp_handler.is_otp_verified(user)
+        otp_obj = OTPService.is_otp_verified(user)
         if not otp_obj or otp_obj.otp != otp:
             return Response({"detail": "OTP not verified or expired"}, status=400)
 

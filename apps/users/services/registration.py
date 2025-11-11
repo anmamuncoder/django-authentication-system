@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny 
 from rest_framework_simplejwt.tokens import RefreshToken
+from apps.verification.services.otp_service import OTPService
 import uuid
 
 class BaseRegistrationView(APIView):
@@ -52,5 +53,9 @@ class BaseRegistrationView(APIView):
                 response_data['refresh'] = str(refresh)
             elif hasattr(user, key):
                 response_data[key] = getattr(user, key)
+        
+        # OTP handle 
+        success = OTPService.send_otp(user,celery=False)
+        response_data['otp'] = "Otp send you mail! Please verify you mail with in 10 minutes"
 
         return Response(response_data, status=status.HTTP_201_CREATED)
