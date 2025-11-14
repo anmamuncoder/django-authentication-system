@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WebSocket Test</title>
+</head>
+<body>
+<script>
+    // Create a new WebSocket connection to the server
+    // The URL specifies the protocol (ws for WebSocket) and the endpoint on the server
+    const ws = new WebSocket('ws://localhost:8020/ws/stock/share/');
+
+    // Event handler: triggered when the WebSocket connection is successfully opened
+    ws.onopen = () => console.log("Connected!");  
+    // "Connected!" will be printed in the browser console when connection succeeds
+
+    // Event handler: triggered when a message is received from the server
+    ws.onmessage = (event) => {
+        // event.data contains the message from the server (usually a string)
+        // JSON.parse converts the string into a JavaScript object
+        console.log("Received:", JSON.parse(event.data));
+    };
+
+    // Event handler: triggered when the WebSocket connection is closed
+    ws.onclose = () => console.log("Disconnected!");  
+    // "Disconnected!" will be printed if the connection is closed
+
+    // Example of sending data to the server
+    // We use setTimeout to wait 1 second before sending, ensuring the connection is open
+    setTimeout(() => {
+        // ws.send sends a message to the server
+        // JSON.stringify converts a JavaScript object into a string
+        ws.send(JSON.stringify({message: "Hello from JS"}));
+    }, 1000);
+</script>
+
+</body>
+
+<h1> Hello WebSocket world </h1>
+
+</html>
+
+
+
+<!--
+Command                        -   WebSockets Support   - Notes
+`python manage.py runserver`   -   Not reliable         - Only HTTP, dev server, which is synchronous and mainly meant for development. It does not support WebSockets properly.
+`daphne core.asgi:application` -   Fully supported      - Needed for Django Channels or async, Daphne is an ASGI server, made to handle asynchronous protocols, including WebSockets.
+
+- Use `runserver` only for development testing HTTP.
+- Use `Daphne` (or Uvicorn/Hypercorn) for WebSocket support or async Django.
+-->
