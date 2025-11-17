@@ -171,4 +171,11 @@ Content-Type: application/json
 DELETE http://127.0.0.1:8020/inventory/5d00929a-3ce0-4b8f-b773-5b332cba1cc1/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzMDQ1NTYwLCJpYXQiOjE3NjI0NDA3NjAsImp0aSI6IjE4OWM4MDIzYmQxNzQyNDg4Nzg3ZWQ4NmQ2YTNjOGM5IiwidXNlcm5hbWUiOiJhZG1pbjEwIiwiaWQiOiIyMzhiMGZlYi02YTBhLTQ0M2YtOGJkNS0wMWM0NTljYzlkNmEiLCJlbWFpbCI6ImFubWFtdW4wQGdtYWlsLmNvbSIsImlzX3Bob25lX3ZlcmlmeSI6ZmFsc2UsImlzX2VtYWlsX3ZlcmlmeSI6ZmFsc2V9.zGcOCc7lusPltLJNpBxPTaWXyuMSjUhR9oM7ywrxYkE
  
+###
+POST  http://127.0.0.1:8020/api/share/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzOTYyODA5LCJpYXQiOjE3NjMzNTgwMDksImp0aSI6IjQ5ODFjMDIxNjc5YjQ0YmViODM1MDE2NDg0MDk5NjE2IiwidXNlcm5hbWUiOiJhZG1pbiJ9.VC3D0O0LIEHzt9QbowP9r21SKtkG7-1dh-FWljjYedg
+Content-Type: application/json 
 
+{  
+    "shared_user": "admin1"  
+}
