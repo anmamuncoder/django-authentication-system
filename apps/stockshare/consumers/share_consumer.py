@@ -1,12 +1,14 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from datetime import datetime
+from asgiref.sync import sync_to_async
 
 class ShareConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         # Optional: group per user or global
         self.group_name = "stockshare"
         await self.channel_layer.group_add(self.group_name, self.channel_name)
+        # sync_to_async(self.channel_layer.group_add)(self.group_name, self.channel_name)
         await self.accept()
 
     async def disconnect(self, close_code):
