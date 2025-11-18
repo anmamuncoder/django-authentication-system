@@ -171,6 +171,13 @@ Content-Type: application/json
 DELETE http://127.0.0.1:8020/inventory/5d00929a-3ce0-4b8f-b773-5b332cba1cc1/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzMDQ1NTYwLCJpYXQiOjE3NjI0NDA3NjAsImp0aSI6IjE4OWM4MDIzYmQxNzQyNDg4Nzg3ZWQ4NmQ2YTNjOGM5IiwidXNlcm5hbWUiOiJhZG1pbjEwIiwiaWQiOiIyMzhiMGZlYi02YTBhLTQ0M2YtOGJkNS0wMWM0NTljYzlkNmEiLCJlbWFpbCI6ImFubWFtdW4wQGdtYWlsLmNvbSIsImlzX3Bob25lX3ZlcmlmeSI6ZmFsc2UsImlzX2VtYWlsX3ZlcmlmeSI6ZmFsc2V9.zGcOCc7lusPltLJNpBxPTaWXyuMSjUhR9oM7ywrxYkE
  
+
+
+
+# ----------------------------
+# ShareMe Model
+# ----------------------------
+
 ###
 POST  http://127.0.0.1:8020/api/share/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzOTYyODA5LCJpYXQiOjE3NjMzNTgwMDksImp0aSI6IjQ5ODFjMDIxNjc5YjQ0YmViODM1MDE2NDg0MDk5NjE2IiwidXNlcm5hbWUiOiJhZG1pbiJ9.VC3D0O0LIEHzt9QbowP9r21SKtkG7-1dh-FWljjYedg
@@ -178,4 +185,58 @@ Content-Type: application/json
 
 {  
     "shared_user": "admin1"  
+}
+
+ 
+# -----------------------
+# Websocket testing
+# -----------------------
+
+### admin
+PATCH  http://127.0.0.1:8020/inventory/52d37c63-7607-4208-a261-24b626f008a8/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY0MDYzMTgyLCJpYXQiOjE3NjM0NTgzODIsImp0aSI6IjllN2I3ZmJhYjE5NDQzMGNhN2ZkYmE0OWVmZDhlMDJkIiwidXNlcm5hbWUiOiJhZG1pbiJ9.1Z-A8wWxKArPJCBJVka6OxutIaJExce6_q7MYzMozYo
+Content-Type: application/json 
+
+{  
+    "name": "A",
+    "priority": "High", 
+    "number": 2, 
+    "category": "369391e7-9e60-4cfa-b589-566be124d116"  
+}
+
+### admin1
+PATCH  http://127.0.0.1:8020/inventory/751a58fc-bfa8-4d6a-9dd7-5cbdb23f8080
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY0MDYzMzM5LCJpYXQiOjE3NjM0NTg1MzksImp0aSI6ImFmODE0N2U1OWJjNzQ0YTQ5NjE5YTA1ZDQxY2QwNmEwIiwidXNlcm5hbWUiOiJhZG1pbjEifQ.DIQGhb7bXoOim670xYtUYqwTyCitpaUa81uyy6aPv_4
+Content-Type: application/json 
+
+{  
+    "name": "B",
+    "priority": "High", 
+    "number": 2, 
+    "category": "369391e7-9e60-4cfa-b589-566be124d116"  
+}
+
+### admin4
+PATCH  http://127.0.0.1:8020/inventory/b98b5b7e-406b-4a51-85a1-7d135661748f/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY0MDYzNDE3LCJpYXQiOjE3NjM0NTg2MTcsImp0aSI6IjFlNWQ5YzE3NzEwODRkZTU5MGQ1ZDUyYjllZjI2ODAzIiwidXNlcm5hbWUiOiJhZG1pbjQifQ.rQKviJ9e8hiOG2wCj8EfITdFGw16pdz5nPQB9lLS5s4
+Content-Type: application/json 
+
+{  
+    "name": "Y",
+    "priority": "High", 
+    "number": 2, 
+    "category": "369391e7-9e60-4cfa-b589-566be124d116"  
+}
+
+
+### admin5
+PATCH  http://127.0.0.1:8020/inventory/fb4b1ace-082d-42f1-9230-2d2e2a032e37/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY0MDYzNDY2LCJpYXQiOjE3NjM0NTg2NjYsImp0aSI6ImVlM2ZmNzMwYjU4ODRlODc4YzMxZTQyNTdhODUxNjMzIiwidXNlcm5hbWUiOiJhZG1pbjUifQ.c51RpGN5Gatoe48IGZR31aPudMMPeHLMnIwC9ZKFyo8
+Content-Type: application/json 
+
+{  
+    "name": "Z",
+    "priority": "High", 
+    "number": 2, 
+    "category": "369391e7-9e60-4cfa-b589-566be124d116"  
 }
