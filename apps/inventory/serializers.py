@@ -26,4 +26,3 @@ class InventorySerializer(ModelSerializer):
     class Meta:
         model = Inventory
         fields = '__all__' 
-

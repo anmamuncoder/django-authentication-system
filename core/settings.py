@@ -40,6 +40,7 @@ CUSTOM_APPS = [
     'apps.users',
     'apps.verification',
     'apps.inventory',
+    'apps.stockshare',
     
 ]
 
@@ -72,6 +73,10 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',  # Must be at the top
     'django.middleware.common.CommonMiddleware',
 
+    # Static files (CSS,JS,images) when using Daphne or any ASGI server, because they don’t serve static files by default. 
+    # After adding this middleware, remember to run: `python manage.py collectstatic 
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -103,6 +108,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
+# Channels ASGI application
+ASGI_APPLICATION = 'core.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
@@ -242,3 +249,14 @@ sentry_sdk.init(
     # "trace" runs profiler only during active transaction tracing.
     profile_lifecycle="trace",
 )
+
+ 
+# Channels layer using Redis (reuse your Celery Redis)
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [os.getenv("CELERY_BROKER_URL", "redis://redis:6379/0")],
+        },
+    },
+}
