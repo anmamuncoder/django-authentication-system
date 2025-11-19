@@ -4,6 +4,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from datetime import datetime
 from asgiref.sync import sync_to_async
 from django.db import models
+from datetime import datetime
 
 class ShareConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -51,7 +52,9 @@ class InventoryConsumer(AsyncWebsocketConsumer):
         inventories = await self.get_user_inventories(self.username)
         await self.send(json.dumps({
             "type": "initial_data",
-            "inventories": inventories
+            "event": "initial",
+            "inventories": inventories,
+            "server_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }, cls=DjangoJSONEncoder))
 
     async def disconnect(self, close_code):
@@ -64,7 +67,9 @@ class InventoryConsumer(AsyncWebsocketConsumer):
             {
             "type": "inventory_event",
             "event": event["event"],
-            "inventories": event["data"]
+            "inventories": event["data"],
+            "server_time": event['server_time']
+
             }, 
             cls=DjangoJSONEncoder)
         )

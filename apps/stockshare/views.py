@@ -16,3 +16,10 @@ class ShareWithView(ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+    def perform_destroy(self, instance):
+        user1 = instance.owner
+        user2 = instance.shared_user
+ 
+        ShareWith.objects.filter(owner=user1, shared_user=user2).delete()
+        ShareWith.objects.filter(owner=user2, shared_user=user1).delete()

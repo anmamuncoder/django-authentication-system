@@ -11,11 +11,12 @@ router = DefaultRouter()
 
 urlpatterns =  (
     [
-        path('users/me/',UserView.as_view(),name='self-me'),
-        path("users/me/change-password/", ChangePasswordView.as_view(), name="change-password"),
-        path('users/register/',UserRegisterView.as_view(),name='register'),
-        path('users/login/',TokenObtainPairView.as_view(),name="login"),
-        path('users/login/refresh/',TokenRefreshView.as_view(),name="login-refresh"),
+        path('profile/',UserView.as_view(),name='self-me'),
+        path("password/change/", ChangePasswordView.as_view(), name="change-password"),
+        path('register/',UserRegisterView.as_view(),name='register'),
+        path('login/',TokenObtainPairView.as_view(),name="login"),
+        path('login/refresh/',TokenRefreshView.as_view(),name="login-refresh"),
          
     ]  + router.urls
 )
+# path('users/<str:username>/',UserView.as_view(),name='self-me'),

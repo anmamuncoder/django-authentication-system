@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated,AllowAny
@@ -49,8 +50,12 @@ class VerifyOTPView(APIView):
         success, message = OTPService.verify_otp(user, otp)
         if not success:
             return Response({"detail": message}, status=status.HTTP_400_BAD_REQUEST)
+        
+        refresh = RefreshToken.for_user(user)
+        access = str(refresh.access_token)
+        refresh = str(refresh)
 
-        return Response({"detail": message}, status=status.HTTP_200_OK)
+        return Response({"access": access, "refresh": refresh}, status=status.HTTP_200_OK)
 
 
 
@@ -108,7 +113,8 @@ class ResetPasswordView(APIView):
         new_password = serializer.validated_data['new_password']
 
         user = User.objects.get(email=email)
- 
+
+        success, message = OTPService.verify_otp(user, otp)
         otp_obj = OTPService.is_otp_verified(user)
         if not otp_obj or otp_obj.otp != otp:
             return Response({"detail": "OTP not verified or expired"}, status=400)

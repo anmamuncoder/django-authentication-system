@@ -3,14 +3,33 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.response import Response
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.exceptions import AuthenticationFailed
+from rest_framework.request import Request as DRFRequest
 
 class VerifyUserStatus:
     def __init__(self,get_response):
         self.get_response = get_response
         
     def __call__(self, request): 
-        response = self.get_response(request) 
+        # --------------------------------------------
+        # Manually authenticate JWT here because Django middleware runs before DRF view, so request.user is not set yet.
+        # --------------------------------------------
+        # try:
+        #     jwt_auth = JWTAuthentication() 
+        #     user, _ = jwt_auth.authenticate(request)
+        #     request.user = user
+        #     print("Before view:", request.user.username, flush=True)
+        # except AuthenticationFailed:
+        #     return
+        #     request.user = None 
+        # print("After view:", request.user.username, flush=True) 
 
+        # --------------------------------------------
+        # Call the next middleware or view and get its response
+        # --------------------------------------------
+
+        response = self.get_response(request) 
         # don't require authentication or email verification
         allowed_paths = [ 
             reverse('schema'),
@@ -44,7 +63,18 @@ class VerifyUserStatus:
             if is_api:
                 return JsonResponse({"detail": "Email not verified. Please verify your email first."}, status=status.HTTP_403_FORBIDDEN)
 
+        # --------------------------------------------
+        # USERNAME ENFORCEMENT → /users/<username>/
+        # --------------------------------------------
+
+        # resolver = getattr(request, 'resolver_match', None)  
+        # if resolver and user and user.is_authenticated:
+        #     # full namespaced view name
+        #     if resolver.view_name == 'users:self-me': 
+        #         username = resolver.kwargs.get('username')
+        #         if username != user.username:
+        #             return JsonResponse({"detail": "Forbidden"}, status=403)
+                
  
         return response
-
  

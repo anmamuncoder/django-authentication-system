@@ -1,5 +1,5 @@
 ###
-POST http://127.0.0.1:8020/auth/users/login/ 
+POST http://127.0.0.1:8020/auth/login/ 
 Content-Type: application/json 
 
 {
@@ -27,8 +27,8 @@ Content-Type: application/json
 }
 
 ###
-PATCH  http://127.0.0.1:8020/auth/users/me/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzNDU4NjAxLCJpYXQiOjE3NjI4NTM4MDEsImp0aSI6IjYzMDkzZmE4NDQ5OTQ5N2JhMmZjZmFjN2E3ZjU2YTdjIiwidXNlcm5hbWUiOiJhZG1pbjIifQ.4IOwx_VK6RkoNG-njQAy_40ePeKc46-hzFiQw8tU2Vg
+GET  http://127.0.0.1:8020/auth/user/admin/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY0MDkwNDYwLCJpYXQiOjE3NjM0ODU2NjAsImp0aSI6IjZhZGZjMDg3MWVjMTQ4Mzc5YWM1MzM0MWIyNjM5NGNhIiwidXNlcm5hbWUiOiJhZG1pbiJ9.jaf7ihP2rzjuZn28ji9_2C3gHMAmAQYRZfJSt6T0BGw
 Content-Type: application/json 
 
 {  
@@ -179,18 +179,18 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 # ----------------------------
 
 ###
-POST  http://127.0.0.1:8020/api/share/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzOTYyODA5LCJpYXQiOjE3NjMzNTgwMDksImp0aSI6IjQ5ODFjMDIxNjc5YjQ0YmViODM1MDE2NDg0MDk5NjE2IiwidXNlcm5hbWUiOiJhZG1pbiJ9.VC3D0O0LIEHzt9QbowP9r21SKtkG7-1dh-FWljjYedg
+GET  http://127.0.0.1:8020/share/inventory/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY0MTYwODAyLCJpYXQiOjE3NjM1NTYwMDIsImp0aSI6ImZmNjg5MGYzYWQ2MzQ3ZThiZWQzNzdiNmM0MjM0NTk2IiwidXNlcm5hbWUiOiJhZG1pbiJ9.xDkgcWuYxi_B0-nLM_io7bsZv40EoHrNuP4_OuLLzNk
 Content-Type: application/json 
 
 {  
-    "shared_user": "admin1"  
+    "shared_user": "admin4" 
 }
 
- 
 # -----------------------
 # Websocket testing
 # -----------------------
+# ws://localhost:8020/ws/inventory/<username>/
 
 ### admin
 PATCH  http://127.0.0.1:8020/inventory/52d37c63-7607-4208-a261-24b626f008a8/

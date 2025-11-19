@@ -22,11 +22,15 @@ tags:
     description: Endpoints for managing product categories.
   - name: Inventory
     description: Endpoints for managing inventory and stock records.
+  - name: ShareMe
+    description: Endpoints for managing inventory and stock records.
+  - name: Websocket
+    description: Endpoints for managing inventory and stock records.
 
 
 paths:
   # ------------------Auth-------------------
-  /auth/users/register/:
+  /auth/register/:
     post:
       tags: [Authentication]
       summary: Registrations
@@ -52,7 +56,7 @@ paths:
                 properties:
                   access: {type: string,example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzNDU4NjAxLCJpYXQiOjE3NjI4NTM4MDEsImp0aSI6IjYzMDkzZmE4NDQ5OTQ5N2JhMmZjZmFjN2E3ZjU2YTdjIiwidXNlcm5hbWUiOiJhZG1pbjIifQ.4IOwx_VK6RkoNG-njQAy_40ePeKc46-hzFiQw8tU2Vg}
                   otp: {type: string , example: Updated. OTP has been sent to your email for verification.}  
-  /auth/users/login/:
+  /auth/login/:
     post:
         tags: [Authentication]
         summary: Login
@@ -76,7 +80,7 @@ paths:
                   properties:
                     refresh: {type: string,example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzNDU4NjAxLCJpYXQiOjE3NjI4NTM4MDEsImp0aSI6IjYzMDkzZmE4NDQ5OTQ5N2JhMmZjZmFjN2E3ZjU2YTdjIiwidXNlcm5hbWUiOiJhZG1pbjIifQ.4IOwx_VK6RkoNG-njQAy_40ePeKc46-hzFiQw8tU2Vg}
                     access: {type: string,example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzNDU4NjAxLCJpYXQiOjE3NjI4NTM4MDEsImp0aSI6IjYzMDkzZmE4NDQ5OTQ5N2JhMmZjZmFjN2E3ZjU2YTdjIiwidXNlcm5hbWUiOiJhZG1pbjIifQ.4IOwx_VK6RkoNG-njQAy_40ePeKc46-hzFiQw8tU2Vg}
-  /auth/users/login/refresh/:
+  /auth/login/refresh/:
     post:
         tags: [Authentication]
         summary: Refresh access token
@@ -98,7 +102,7 @@ paths:
                   type: object 
                   properties:
                     access: {type: string,example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzNDU4NjAxLCJpYXQiOjE3NjI4NTM4MDEsImp0aSI6IjYzMDkzZmE4NDQ5OTQ5N2JhMmZjZmFjN2E3ZjU2YTdjIiwidXNlcm5hbWUiOiJhZG1pbjIifQ.4IOwx_VK6RkoNG-njQAy_40ePeKc46-hzFiQw8tU2Vg}
-  /auth/me/email/conform-verify/:
+  /auth/email/verify/conform/:
     post:
       tags: [Authentication]
       summary: Verify email confirmation
@@ -129,7 +133,7 @@ paths:
                   type: object 
                   properties:
                     detail: {type: string, example: OTP verified successfully}
-  /auth/users/me/change-password/:
+  /auth/password/change/:
     post:
       tags: [Authentication]
       summary: Change user password
@@ -163,7 +167,7 @@ paths:
                     
 
 # Forgot-Password ------------
-  /auth/user/forgot-password/send-otp/:
+  /auth/password/forgot/otp/request/:
     post:
       tags: [Forgot_Password]
       summary: Send OTP for password reset
@@ -186,7 +190,7 @@ paths:
                   properties:
                     detail: {type: string, example: OTP sent to email}
             
-  /auth/user/forgot-password/verify-otp/:
+  /auth/password/forgot/otp/conform/:
     post:
       tags: [Forgot_Password]
       summary: Verify password reset OTP
@@ -210,7 +214,7 @@ paths:
                   properties:
                     detail: {type: string, example: OTP verified successfully}
             
-  /auth/user/forgot-password/reset/:
+  /auth/password/forgot/otp/reset/:
     post:
       tags: [Forgot_Password]
       summary: Reset user password
@@ -238,7 +242,7 @@ paths:
 
 # User_Profile ------------
   
-  /auth/users/me/:
+  /auth/profile/:
     get:
       tags: [User_Profile]
       summary: Retrieve user profile
@@ -693,6 +697,288 @@ paths:
         '404':
           description: Inventory item not found
 
+
+
+
+
+# -----------------Share Me -------------------------
+
+  /share/inventory/:
+    get:
+      tags:
+        - ShareMe
+      summary: List all shared connections of the authenticated user
+      description: Retrieve a list of all users that the authenticated user has shared inventory with.
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          description: Bearer token for authentication
+          schema:
+            type: string
+            example: "Bearer <token>"
+      responses:
+        '200':
+          description: List of shared connections
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ShareWith'
+
+    post:
+      tags:
+        - ShareMe
+      summary: Create a shared connection
+      description: Share inventory with another user. The authenticated user becomes the owner.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - shared_user
+              properties: 
+                shared_user: {type: string, example: username, description: username of the user to share inventory with} 
+       
+      responses:
+        '201':
+          description: Shared connection created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShareWith'
+        '400':
+          description: Invalid input / already shared
+
+  /share/inventory/{id}/:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Inventory ID
+        schema:
+          type: integer
+          example: 1
+    get:
+      tags:
+        - ShareMe
+      summary: Retrieve a shared connection
+      description: Retrieve details of a specific shared connection by its ID.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          description: Bearer token for authentication
+          schema:
+            type: string
+            example: "Bearer <token>"
+      
+      responses:
+        '200':
+          description: Shared connection details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShareWith'
+        '404':
+          description: Shared connection not found
+ 
+    put:
+      tags:
+        - ShareMe
+      summary: Update a shared connection
+      description: Update a shared connection (rarely used; normally only owner can update)
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid 
+        - name: Authorization
+          in: header
+          required: true
+          description: Bearer token for authentication
+          schema:
+            type: string
+            example: "Bearer <token>"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShareWith'
+      responses:
+        '200':
+          description: Shared connection updated successfully
+        '403':
+          description: Not allowed / permission denied
+        '404':
+          description: Shared connection not found
+
+    patch:
+      tags:
+        - ShareMe
+      summary: Partially update a shared connection
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid 
+        - name: Authorization
+          in: header
+          required: true
+          description: Bearer token for authentication
+          schema:
+            type: string
+            example: "Bearer <token>"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShareWith'
+      responses:
+        '200':
+          description: Shared connection updated successfully
+        '403':
+          description: Not allowed / permission denied
+        '404':
+          description: Shared connection not found
+
+    delete:
+      tags:
+        - ShareMe
+      summary: Delete a shared connection
+      description: Remove a shared connection. Only the owner can delete.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid 
+        - name: Authorization
+          in: header
+          required: true
+          description: Bearer token for authentication
+          schema:
+            type: string
+            example: "Bearer <token>"
+      responses:
+        '204':
+          description: Shared connection deleted successfully
+        '403':
+          description: Not allowed / permission denied
+        '404':
+          description: Shared connection not found
+
+ 
+
+
+
+# ----------------- WebSocket -------------------------
+ 
+  /ws/inventories/{username}/:
+    get:
+      summary: Connect to Inventory WebSocket for a specific user
+      description: |
+        Connect to the WebSocket to receive real-time inventory updates. 
+        Requires a valid JWT Bearer token in the `Authorization` header during connection.
+
+        ### Events
+        - `initial`: Sent once after connection. Contains all inventories visible to the user.
+        - `create`: Sent when a new inventory is created.
+        - `update`: Sent when an existing inventory is updated.
+        - `delete`: Sent when an inventory is deleted.
+
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Username of the user whose inventory will be streamed.
+
+      security:
+        - bearerAuth: []
+
+      responses:
+        '101':
+          description: WebSocket connection successfully established
+          content:
+            application/json:
+              examples:
+                initial_event:
+                  summary: Initial inventory data
+                  value:
+                    type: "initial_data"
+                    event: "initial"
+                    inventories:
+                      - id: "52d37c63-7607-4208-a261-24b626f008a8"
+                        name: "A"
+                        priority: "High"
+                        user_username: "admin"
+                      - id: "751a58fc-bfa8-4d6a-9dd7-5cbdb23f8080"
+                        name: "B"
+                        priority: "High"
+                        user_username: "admin1"
+                    server_time: "2025-11-19 12:00:00"
+
+                create_event:
+                  summary: New inventory created
+                  value:
+                    type: "inventory_event"
+                    event: "create"
+                    inventories:
+                      - id: "a1b2c3d4-5678-9101-1121-314151617181"
+                        name: "C"
+                        priority: "Medium"
+                        user_username: "admin"
+                    server_time: "2025-11-19 12:05:00"
+
+                update_event:
+                  summary: Inventory updated
+                  value:
+                    type: "inventory_event"
+                    event: "update"
+                    inventories:
+                      - id: "52d37c63-7607-4208-a261-24b626f008a8"
+                        name: "A+"
+                        priority: "High"
+                        user_username: "admin"
+                    server_time: "2025-11-19 12:10:00"
+
+                delete_event:
+                  summary: Inventory deleted
+                  value:
+                    type: "inventory_event"
+                    event: "delete"
+                    inventories:
+                      - id: "751a58fc-bfa8-4d6a-9dd7-5cbdb23f8080"
+                        name: "B"
+                        priority: "High"
+                        user_username: "admin1"
+                    server_time: "2025-11-19 12:15:00"
+
+ 
+
+
+
+ 
 components:
   schemas:
     User:
@@ -749,3 +1035,58 @@ components:
         date:
           type: string
           example: "2025-11-09" 
+   
+    ShareWith:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid 
+        shared_user:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+
+    InventoryEvent:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [initial_data, inventory_event]
+          description: Type of message sent by the server
+        event:
+          type: string
+          enum: [initial, create, update, delete]
+          description: Specific event action
+        inventories:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+                description: Inventory UUID
+              name:
+                type: string
+                description: Inventory name
+              priority:
+                type: string
+                description: Inventory priority
+              user_username:
+                type: string
+                description: Owner of the inventory
+        server_time:
+          type: string
+          format: date-time
+          description: Timestamp added by the server
+      required:
+        - type
+        - event
+        - inventories
+        - server_time
+
+
+
+

@@ -6,6 +6,7 @@ from .models import Inventory
 from apps.stockshare.serializers import InventorySerializerUUIDtoSTRING
 from apps.users.models import User
 from django.db import models
+from datetime import datetime
 
 def get_user_inventories(user):
     qs = Inventory.objects.filter(models.Q(user=user) | models.Q(user__shared_connections__shared_user=user)).distinct()
@@ -27,7 +28,8 @@ def broadcast_inventory_update(instance, event_type):
             {
                 "type": "inventory_event",
                 "event": event_type,
-                "data": get_user_inventories(user)
+                "data": get_user_inventories(user),
+                "server_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             }
         )
 

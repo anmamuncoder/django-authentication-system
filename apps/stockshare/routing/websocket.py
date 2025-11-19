@@ -4,7 +4,7 @@ from apps.stockshare.consumers.share_consumer import ShareConsumer,InventoryCons
 websocket_urlpatterns = (
     [
         path("ws/stock/share/", ShareConsumer.as_asgi()),
-        re_path(r"ws/inventory/(?P<username>[A-Za-z0-9._-]+)/$", InventoryConsumer.as_asgi()),
+        re_path(r"ws/inventories/(?P<username>[A-Za-z0-9._-]+)/$", InventoryConsumer.as_asgi()),
         
     ]
 )

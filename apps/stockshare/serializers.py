@@ -6,10 +6,12 @@ from apps.users.models import User
 
 class ShareWithSerializer(ModelSerializer):
     shared_user = serializers.CharField() 
+
     class Meta:
         model = ShareWith
-        fields = ["shared_user"]
-
+        fields = ['id',"shared_user",'created_at']
+        read_only_fields = ['id','created_at']
+    
     def validate(self, attrs):
         request = self.context['request']
         user1 = request.user 
