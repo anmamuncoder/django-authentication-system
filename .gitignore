@@ -22,7 +22,7 @@ db.sqlite3
 # Django specific
 media/
 logs/
-*.log
+# *.log
 
 # Pytest / Coverage
 .coverage

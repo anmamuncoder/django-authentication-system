@@ -86,6 +86,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware', 
     # Custom
     'core.middleware.verify_user_status.VerifyUserStatus',
+    'core.middleware.request_logging.APILoggingMiddleware',
     
 ]
 
@@ -260,3 +261,37 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
+# Logging Configuration
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+
+    "formatters": {
+        "verbose": {
+            "format": "[{levelname}] {asctime} {name} | {message}",
+            "style": "{",
+        },
+    },
+
+    # The handler tells where the log will be written (file, console, email, etc.) and from which level to start. 
+    # and will save the log messages to a file.
+    "handlers": {
+        "api_file_handler": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "filename": os.path.join(BASE_DIR, "logs", "api.log"),
+            "formatter": "verbose",
+        },
+    },
+
+    # Where log messages are generated from
+    "loggers": {
+        "api_logger": {
+            "handlers": ["api_file_handler"],
+            "level": "INFO",
+            "propagate": False,
+        },
+    },
+}
+
