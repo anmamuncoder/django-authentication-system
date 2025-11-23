@@ -52,7 +52,7 @@ def test_verify_otp(auth_client, otp_obj):
     url = reverse('verification:conform-verify')
     response = auth_client.post(url, data={'email': otp_obj.user.email, 'otp': otp_obj.otp})
     assert response.status_code == status.HTTP_200_OK
-    assert "OTP verified" in response.data['detail'] or "successfully" in response.data['detail']
+    assert "access" in response.data and 'refresh' in response.data
 
 
 # ----------------------------

@@ -8,7 +8,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://127.0.0.1:8000/auth/users/login/refresh/ 
+POST http://127.0.0.1:8000/auth/login/refresh/ 
 Content-Type: application/json 
 
 {
@@ -16,7 +16,7 @@ Content-Type: application/json
 }
  
 ###
-POST http://127.0.0.1:8020/auth/users/register/
+POST http://127.0.0.1:8020/auth/register/
 Content-Type: application/json 
 
 {
@@ -27,7 +27,7 @@ Content-Type: application/json
 }
 
 ###
-GET  http://127.0.0.1:8020/auth/user/admin/
+GET  http://127.0.0.1:8020/auth/profile/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY0MDkwNDYwLCJpYXQiOjE3NjM0ODU2NjAsImp0aSI6IjZhZGZjMDg3MWVjMTQ4Mzc5YWM1MzM0MWIyNjM5NGNhIiwidXNlcm5hbWUiOiJhZG1pbiJ9.jaf7ihP2rzjuZn28ji9_2C3gHMAmAQYRZfJSt6T0BGw
 Content-Type: application/json 
 
@@ -37,7 +37,7 @@ Content-Type: application/json
 
 
 ###
-POST http://127.0.0.1:8000/auth/users/me/change-password/
+POST http://127.0.0.1:8000/auth/password/change/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNzY1ODMxLCJpYXQiOjE3NjIxNjEwMzEsImp0aSI6ImFjY2RlOTU2NDg4ZjQ3N2M4Yzc5NjIwZDkwN2E1YjM4IiwidXNlcm5hbWUiOiJhZG1pbiJ9.kCOGJWmBQF_stf2fYIqiOwvn_zE3Ml8-n4CPTZwZBKk
 Content-Type: application/json 
 
@@ -48,7 +48,7 @@ Content-Type: application/json
 
 
 ###
-POST http://127.0.0.1:8020/auth/me/email/request-verify/
+POST http://127.0.0.1:8020/auth/email/verify/request/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzMDQ1NTYwLCJpYXQiOjE3NjI0NDA3NjAsImp0aSI6IjE4OWM4MDIzYmQxNzQyNDg4Nzg3ZWQ4NmQ2YTNjOGM5IiwidXNlcm5hbWUiOiJhZG1pbjEwIiwiaWQiOiIyMzhiMGZlYi02YTBhLTQ0M2YtOGJkNS0wMWM0NTljYzlkNmEiLCJlbWFpbCI6ImFubWFtdW4wQGdtYWlsLmNvbSIsImlzX3Bob25lX3ZlcmlmeSI6ZmFsc2UsImlzX2VtYWlsX3ZlcmlmeSI6ZmFsc2V9.zGcOCc7lusPltLJNpBxPTaWXyuMSjUhR9oM7ywrxYkE
 Content-Type: application/json 
 
@@ -57,7 +57,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://127.0.0.1:8000/auth/me/email/conform-verify/
+POST http://127.0.0.1:8000/auth/email/verify/conform/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNzc5MzQyLCJpYXQiOjE3NjIxNzQ1NDIsImp0aSI6IjM3Mzc2M2FkNDlkYjRkNTE5MGU2OTIxNGU0OTY0MjdlIiwidXNlcm5hbWUiOiJhZG1pbjEwIiwiaWQiOjE1LCJlbWFpbCI6ImFubWFtdW4wQGdtYWlsLmNvbSIsImlzX3Bob25lX3ZlcmlmeSI6ZmFsc2UsImlzX2VtYWlsX3ZlcmlmeSI6ZmFsc2V9.z0cD8SCd1htD-gOanduyHFXqleOyj5P03X7VOeTljxY
 Content-Type: application/json 
 
@@ -70,7 +70,7 @@ Content-Type: application/json
 
 
 ###
-POST http://127.0.0.1:8000/auth/user/forgot-password/send-otp/
+POST http://127.0.0.1:8000/auth/password/forgot/otp/request/
 Content-Type: application/json 
 
 {  
@@ -78,7 +78,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://127.0.0.1:8000/auth/user/forgot-password/verify-otp/
+POST http://127.0.0.1:8000/auth/password/forgot/otp/conform/
 Content-Type: application/json 
 
 {  
@@ -87,7 +87,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://127.0.0.1:8000/auth/user/forgot-password/reset/
+POST http://127.0.0.1:8000/auth/password/forgot/reset/",
 Content-Type: application/json 
 
 {  
@@ -105,7 +105,7 @@ Content-Type: application/json
 # --------------------------
 ###
 GET http://127.0.0.1:8020/category/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzMDQ1NTYwLCJpYXQiOjE3NjI0NDA3NjAsImp0aSI6IjE4OWM4MDIzYmQxNzQyNDg4Nzg3ZWQ4NmQ2YTNjOGM5IiwidXNlcm5hbWUiOiJhZG1pbjEwIiwiaWQiOiIyMzhiMGZlYi02YTBhLTQ0M2YtOGJkNS0wMWM0NTljYzlkNmEiLCJlbWFpbCI6ImFubWFtdW4wQGdtYWlsLmNvbSIsImlzX3Bob25lX3ZlcmlmeSI6ZmFsc2UsImlzX2VtYWlsX3ZlcmlmeSI6ZmFsc2V9.zGcOCc7lusPltLJNpBxPTaWXyuMSjUhR9oM7ywrxYkE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY0NDIwODk4LCJpYXQiOjE3NjM4MTYwOTgsImp0aSI6Ijg0MDhjZmM1MWExZTRmMTI5Y2EzYjUyY2FlYjMzOGQ2IiwidXNlcm5hbWUiOiJhZG1pbiJ9.3nERzWwKPq6P85MJj5ClNE98RaGs80KGOhuLlny-s00
 
 ###
 GET http://127.0.0.1:8020/category/661c05cc-4041-4248-8cbf-fd00c18473f7/
@@ -139,24 +139,20 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 # --------------------------
 ###
 GET http://127.0.0.1:8020/inventory/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzMDQ1NTYwLCJpYXQiOjE3NjI0NDA3NjAsImp0aSI6IjE4OWM4MDIzYmQxNzQyNDg4Nzg3ZWQ4NmQ2YTNjOGM5IiwidXNlcm5hbWUiOiJhZG1pbjEwIiwiaWQiOiIyMzhiMGZlYi02YTBhLTQ0M2YtOGJkNS0wMWM0NTljYzlkNmEiLCJlbWFpbCI6ImFubWFtdW4wQGdtYWlsLmNvbSIsImlzX3Bob25lX3ZlcmlmeSI6ZmFsc2UsImlzX2VtYWlsX3ZlcmlmeSI6ZmFsc2V9.zGcOCc7lusPltLJNpBxPTaWXyuMSjUhR9oM7ywrxYkE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY0NDIwODk4LCJpYXQiOjE3NjM4MTYwOTgsImp0aSI6Ijg0MDhjZmM1MWExZTRmMTI5Y2EzYjUyY2FlYjMzOGQ2IiwidXNlcm5hbWUiOiJhZG1pbiJ9.3nERzWwKPq6P85MJj5ClNE98RaGs80KGOhuLlny-s00
 
 
 ###
 GET http://127.0.0.1:8020/inventory/5d00929a-3ce0-4b8f-b773-5b332cba1cc1/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzMDQ1NTYwLCJpYXQiOjE3NjI0NDA3NjAsImp0aSI6IjE4OWM4MDIzYmQxNzQyNDg4Nzg3ZWQ4NmQ2YTNjOGM5IiwidXNlcm5hbWUiOiJhZG1pbjEwIiwiaWQiOiIyMzhiMGZlYi02YTBhLTQ0M2YtOGJkNS0wMWM0NTljYzlkNmEiLCJlbWFpbCI6ImFubWFtdW4wQGdtYWlsLmNvbSIsImlzX3Bob25lX3ZlcmlmeSI6ZmFsc2UsImlzX2VtYWlsX3ZlcmlmeSI6ZmFsc2V9.zGcOCc7lusPltLJNpBxPTaWXyuMSjUhR9oM7ywrxYkE
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY0NDIwODk4LCJpYXQiOjE3NjM4MTYwOTgsImp0aSI6Ijg0MDhjZmM1MWExZTRmMTI5Y2EzYjUyY2FlYjMzOGQ2IiwidXNlcm5hbWUiOiJhZG1pbiJ9.3nERzWwKPq6P85MJj5ClNE98RaGs80KGOhuLlny-s00
 
 ###
-POST http://127.0.0.1:8020/inventory/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzMDQ1NTYwLCJpYXQiOjE3NjI0NDA3NjAsImp0aSI6IjE4OWM4MDIzYmQxNzQyNDg4Nzg3ZWQ4NmQ2YTNjOGM5IiwidXNlcm5hbWUiOiJhZG1pbjEwIiwiaWQiOiIyMzhiMGZlYi02YTBhLTQ0M2YtOGJkNS0wMWM0NTljYzlkNmEiLCJlbWFpbCI6ImFubWFtdW4wQGdtYWlsLmNvbSIsImlzX3Bob25lX3ZlcmlmeSI6ZmFsc2UsImlzX2VtYWlsX3ZlcmlmeSI6ZmFsc2V9.zGcOCc7lusPltLJNpBxPTaWXyuMSjUhR9oM7ywrxYkE
+PATCH http://127.0.0.1:8020/inventory/751a58fc-bfa8-4d6a-9dd7-5cbdb23f8080/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY0NDIwODk4LCJpYXQiOjE3NjM4MTYwOTgsImp0aSI6Ijg0MDhjZmM1MWExZTRmMTI5Y2EzYjUyY2FlYjMzOGQ2IiwidXNlcm5hbWUiOiJhZG1pbiJ9.3nERzWwKPq6P85MJj5ClNE98RaGs80KGOhuLlny-s00
 Content-Type: application/json 
 
 {  
-    "name": "PHone - 1",
-    "priority": "High", 
-    "number": 2, 
-    "category": "04a3d02e-beab-4478-ba39-b6154bc29658"  
+    "name": "B"
 }
 ###
 PATCH  http://127.0.0.1:8020/inventory/

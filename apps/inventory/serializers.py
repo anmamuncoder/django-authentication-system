@@ -1,13 +1,17 @@
 from apps.inventory.models import Category,Inventory
-from rest_framework.serializers import Serializer,ModelSerializer, ValidationError
+from rest_framework.serializers import Serializer,ModelSerializer, ValidationError,SerializerMethodField
 # --------------------------
 # Category Serializer
 # --------------------------
 class CategorySerializer(ModelSerializer):
+    total_inventory = SerializerMethodField()
     class Meta:
         model = Category
         fields = '__all__'
 
+    def get_total_inventory(self, obj):
+        return obj.inventory_count
+    
     def validate_name(self, value):
         user = self.context['user']
         if Category.objects.filter(user=user, name=value).exists():

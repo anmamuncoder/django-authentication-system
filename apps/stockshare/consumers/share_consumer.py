@@ -50,6 +50,18 @@ class InventoryConsumer(AsyncWebsocketConsumer):
 
         # Send initial data
         inventories = await self.get_user_inventories(self.username)
+
+        # If username not valid , send it as an error message
+        if isinstance(inventories, dict) and 'error' in inventories:
+            await self.send(json.dumps({
+                "event": "error",
+                "message": inventories['error'],
+                "server_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            }, cls=DjangoJSONEncoder))
+            await self.channel_layer.group_discard(self.room_group ,self.channel_name)
+            await self.close()  # close connection if user not found
+            return
+        
         await self.send(json.dumps({
             "type": "initial_data",
             "event": "initial",
@@ -79,8 +91,13 @@ class InventoryConsumer(AsyncWebsocketConsumer):
         from apps.inventory.models import Inventory
         from apps.users.models import User
         from apps.stockshare.serializers import InventorySerializerUUIDtoSTRING
+        from django.core.exceptions import ObjectDoesNotExist
 
-        user = User.objects.get(username=username)
+        try:
+            user = User.objects.get(username=username)
+        except ObjectDoesNotExist:
+            return {"error": f"User with username '{username}' does not exist."}
+ 
         qs = Inventory.objects.filter(models.Q(user=user) |models.Q(user__shared_connections__shared_user=user)).distinct()
 
         serializers = InventorySerializerUUIDtoSTRING(qs,many=True)

@@ -54,7 +54,8 @@ class TestEmailOTPAPI(APITestCase):
 
         response = self.client.post(self.verify_otp_url, {'email': self.user.email, 'otp': otp_obj.otp}, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['detail'], "OTP verified successfully")
+        self.assertIn('access',response.data)
+        self.assertIn('refresh', response.data)
 
     # --------------------------
     # Forgot password OTP flow for Anonymous user

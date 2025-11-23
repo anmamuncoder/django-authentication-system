@@ -2,6 +2,8 @@ from django.shortcuts import render
 # Create your views here.
 from apps.inventory.models import Category,Inventory
 from apps.inventory.serializers import CategorySerializer,InventorySerializer
+from apps.stockshare.models import ShareWith
+from django.db import models
 
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
@@ -70,7 +72,15 @@ class InventoryView(ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Inventory.objects.filter(user=self.request.user)
+        user = self.request.user
+
+        shares = ShareWith.objects.filter(models.Q(owner=user) | models.Q(shared_user=user)).distinct()
+        #  shared_user IDs
+        user_ids = set(shares.values_list('owner_id', flat=True)) | set(shares.values_list('shared_user_id', flat=True))
+        # Include current user
+        user_ids.add(user.id)
+
+        return Inventory.objects.filter(user__id__in=user_ids)
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user) 

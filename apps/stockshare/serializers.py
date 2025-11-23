@@ -40,11 +40,12 @@ class ShareWithSerializer(ModelSerializer):
 # UUIDs are converted to strings safely.
 class InventorySerializerUUIDtoSTRING(serializers.ModelSerializer):
     # id = serializers.UUIDField(read_only=True)
-    user_username = serializers.UUIDField(source='user.username', read_only=True)
+    category = serializers.UUIDField(source='category.name',read_only=True)
+    user = serializers.UUIDField(source='user.username', read_only=True)
 
     class Meta:
         model = Inventory
-        fields = ['id', 'name', 'priority', 'user_username']  # include id safely
+        fields = ['id', 'name', 'priority','number','category', 'user','created_at']  # include id safely
 
     # id = serializers.UUIDField(format='hex', read_only=True)        # Convert UUID to string
     # 123e4567-e89b-12d3-a456-426614174000 -> 123e4567e89b12d3a456426614174000

@@ -13,24 +13,24 @@ class APILoggingMiddleware:
         # ---- Before View -----
         user = request.user if request.user.is_authenticated else "Anonymous"
 
-        api_logger.info(
-            json.dumps({
-                "method": request.method,
-                "path": request.path,
-                "user": str(user),
-                "headers": dict(request.headers),
-                "body": request.body.decode("utf-8", errors="ignore"),
-            })
-        )
+        request_data = {
+            "method": request.method,
+            "path": request.path,
+            "user": str(user),
+            "headers": dict(request.headers),
+            "body": request.body.decode("utf-8", errors="ignore"),
+        }
+
+        api_logger.info(json.dumps(request_data, default=str))
 
         response = self.get_response(request)
 
         # ----- After View ----
-        api_logger.info(
-            json.dumps({
-                "response_status": response.status_code,
-                "response_data": getattr(response, "data", None),
-            })
-        )
+        response_data = {
+            "response_status": response.status_code,
+            "response_data": getattr(response, "data", None),
+        }
+
+        api_logger.info(json.dumps(response_data, default=str))
 
         return response
