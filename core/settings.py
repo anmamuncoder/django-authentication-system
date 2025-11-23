@@ -49,6 +49,13 @@ INSTALLED_LIBRARIES = [
     "rest_framework", 
     "drf_spectacular",
     'rest_framework_simplejwt.token_blacklist',
+
+    # GraphQL support using Graphene-Django:
+    "graphene_django", #  If you want a stable, widely-used GraphQL solution with auto model integration.
+
+    # GraphQL, for Strawberry-Django
+    # "strawberry.django", # If you want modern Pythonic syntax, async support, and better type safety.
+    
 ]
 
 # Application definition
@@ -296,3 +303,7 @@ LOGGING = {
     },
 }
 
+# Graphene-Django settings
+GRAPHENE = {
+    "SCHEMA": "apps.schema.schema",  # path to your schema
+}

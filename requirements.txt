@@ -67,3 +67,10 @@ channels_redis==4.3.0
 daphne==4.2.1
 whitenoise==6.8.2
 
+
+# GraphQL  
+graphene==3.4.3 
+graphene-django==3.2.3
+# strawberry-graphql==0.287.0 
+# strawberry-graphql-django==0.67.1
+

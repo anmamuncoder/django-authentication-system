@@ -2,6 +2,12 @@ from django.contrib import admin
 from django.urls import path , include
 from django.conf import settings
 from django.conf.urls.static import static 
+
+# GraphQL imports 
+from graphene_django.views import GraphQLView
+from django.views.decorators.csrf import csrf_exempt
+from apps.schema import schema
+
 from drf_spectacular.views import ( 
     SpectacularAPIView, 
     SpectacularRedocView, 
@@ -26,12 +32,20 @@ apps_urls = [
     
 ]
 
+# GraphQL URL patterns
+graphql_urlpatterns = [ 
+    # csrf_exempt =  Disable CSRF for this view so that POST requests from Postman or frontend work easily
+    path('api/graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True, schema=schema))),
+    
+]
+
 urlpatterns = (
     [
         path('admin/', admin.site.urls),
     ] 
     + drf_spectacular_urls
     + apps_urls
+    + graphql_urlpatterns
 )
 
 if settings.DEBUG:
