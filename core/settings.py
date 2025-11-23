@@ -41,6 +41,7 @@ CUSTOM_APPS = [
     'apps.verification',
     'apps.inventory',
     'apps.stockshare',
+    'apps.subscription',
     
 ]
 

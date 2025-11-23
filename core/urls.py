@@ -22,6 +22,7 @@ apps_urls = [
     path('auth/',include('apps.verification.urls'),name='verification'),
     path('',include('apps.inventory.urls'),name='inventory'), 
     path('',include('apps.stockshare.urls'),name='stockshare'),
+    path('',include('apps.subscription.urls'),name='subscription'),
     
 ]
 
