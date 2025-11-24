@@ -306,4 +306,13 @@ LOGGING = {
 # Graphene-Django settings
 GRAPHENE = {
     "SCHEMA": "apps.schema.schema",  # path to your schema
+    "MIDDLEWARE": [
+        "graphql_jwt.middleware.JSONWebTokenMiddleware",
+    ]
 }
+
+AUTHENTICATION_BACKENDS = [
+    "graphql_jwt.backends.JSONWebTokenBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
