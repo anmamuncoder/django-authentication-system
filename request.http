@@ -236,3 +236,27 @@ Content-Type: application/json
     "number": 2, 
     "category": "369391e7-9e60-4cfa-b589-566be124d116"  
 }
+
+
+
+# ------------------------------
+# GrpahQL Queries and Mutations 
+# ------------------------------
+
+###
+POST http://127.0.0.1:8020/api/graphql/
+query MyQuery {
+  subscriptionPlans {
+    id
+    name
+    price
+    active
+    connetionLimits
+    createdAt
+    description
+    durationDays
+    updatedAt
+  }
+}
+ 
+ 

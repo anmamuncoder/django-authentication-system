@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User, AbstractUser,BaseUserManager
 # Create your models here.
+from django.utils import timezone
 import uuid
  
 class UserManager(BaseUserManager):
@@ -33,7 +34,10 @@ class User(AbstractUser):
     is_phone_verify = models.BooleanField(default=False,verbose_name='phone verify')
     is_email_verify = models.BooleanField(default=False,verbose_name='email verify')
     photo = models.ImageField(upload_to='users/',blank=True,null=True)
- 
+    
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    connections = models.IntegerField(default=1)
+
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email','phone_number']  
 

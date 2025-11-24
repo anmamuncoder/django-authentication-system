@@ -1,2 +1,4 @@
+from .queries import SubscriptionPlanQuery
 
-__all__ = []
+__all__ = ['SubscriptionPlanQuery',]
+
