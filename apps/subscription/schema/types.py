@@ -18,5 +18,7 @@ class TransactionType(DjangoObjectType):
     class Meta:
         model = Transaction
         fields = "__all__"
+        # - begin Queryset pagination, Relay style (edges/node)
+        interfaces = (relay.Node,) 
 
     

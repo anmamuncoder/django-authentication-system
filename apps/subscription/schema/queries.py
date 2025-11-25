@@ -1,6 +1,8 @@
 import graphene
-from .types import SubscriptionPlanType, UserSubscriptionType
-from apps.subscription.models import SubscriptionPlan, UserSubscription
+from .types import SubscriptionPlanType, UserSubscriptionType, TransactionType
+from apps.subscription.models import SubscriptionPlan, UserSubscription, Transaction
+from graphene_django.filter import DjangoFilterConnectionField
+from apps.subscription.filters import TransactionFilterSet
 
 # -------------------------
 # Subscription Plan Queries
@@ -25,3 +27,19 @@ class UserSubscriptionQuery(graphene.ObjectType):
             raise Exception("Authentication required")
 
         return UserSubscription.objects.filter(user=user)
+
+
+# ----------------------
+# Transaction Query
+# -----------------------
+
+class TransactionQuery(graphene.ObjectType):
+    transaction = DjangoFilterConnectionField(TransactionType,filterset_class=TransactionFilterSet)
+
+    def resolve_transaction(self, info, **kwargs):
+        user = info.context.user
+        if user.is_anonymous:
+            raise Exception("Authentication required")
+       
+        return Transaction.objects.filter(user=user)
+

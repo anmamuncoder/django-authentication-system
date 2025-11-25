@@ -275,3 +275,25 @@ query MyQuery {
 }
 
 
+###
+POST http://127.0.0.1:8020/api/graphql/
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY0NTkzMDEwLCJpYXQiOjE3NjM5ODgyMTAsImp0aSI6IjEyMzk0YmI1Y2EwNjQ0MTdiOWYxMjAzNDM3OWNjZmQ1IiwidXNlcm5hbWUiOiJhZG1pbjEifQ.FbMFdDyMzRU_ftMVC1OzkxTexQS0WMBKu5nZaxFgbiA
+
+query MyQuery 
+{
+  transaction 
+  {
+    edges 
+    {
+      cursor
+      node 
+      { 
+        amount accountNumber  id bankName  createdAt status success updatedAt routingNumber 
+      }
+    }
+    pageInfo 
+    { 
+      endCursor hasNextPage hasPreviousPage startCursor
+    }
+  }
+}
