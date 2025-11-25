@@ -297,3 +297,19 @@ query MyQuery
     }
   }
 }
+
+
+
+###
+POST http://127.0.0.1:8020/api/graphql/
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY0NTkzMDEwLCJpYXQiOjE3NjM5ODgyMTAsImp0aSI6IjEyMzk0YmI1Y2EwNjQ0MTdiOWYxMjAzNDM3OWNjZmQ1IiwidXNlcm5hbWUiOiJhZG1pbjEifQ.FbMFdDyMzRU_ftMVC1OzkxTexQS0WMBKu5nZaxFgbiA
+
+mutation MyMutation {
+  createTransaction(
+    input:{planId: "f9b74986-b4a8-45b6-b416-6ac3b2b4a43f", bankName: "234234", routingNumber: "3434", accountNumber: "12341234234123"}
+  ){
+    transaction { id accountNumber amount bankName createdAt }
+  }
+}
+
+

@@ -14,4 +14,3 @@ class UserSubscriptionAdmin(admin.ModelAdmin):
     search_fields = ('user__username', 'plan__name')
     list_filter = ('status',)
 
-    
