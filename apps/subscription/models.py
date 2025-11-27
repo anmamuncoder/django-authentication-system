@@ -30,6 +30,11 @@ class UserSubscription(BaseModel):
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateTimeField(blank=True, null=True, editable=False)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user'],condition=models.Q(status='active'),name='per_user_single_subscription_active')
+        ] 
+
     @property
     def remaining_days(self):
         if not self.end_date:
@@ -37,18 +42,30 @@ class UserSubscription(BaseModel):
         
         remaining = (self.end_date - timezone.now()).days
         return remaining if remaining > 0 else 0
-
+    
     def save(self, *args, **kwargs):
+        # --------------------------------------
+        # when update , already object created, so not will apply save() logic
+        # --------------------------------------
+        is_new = self.pk is None
+        if not is_new:
+            return super().save(*args, **kwargs)
+
+        # --------------------------------------
+        # when first time object create
+        # --------------------------------------
         # Set end_date based on plan type
-        if self.plan.type == 'time_based' and self.status == 'active':
+        if self.plan.type == 'time_based':
             if not self.end_date:
-                self.end_date = self.start_date + timezone.timedelta(days=self.plan.duration_days)
+                self.end_date = timezone.now() + timezone.timedelta(days=self.plan.duration_days)
+                self.status = 'active'
 
         # Update user's connections if plan is fixed 
-        elif self.plan.type == 'fixed' and self.status == 'active':
+        elif self.plan.type == 'fixed':
             self.user.connections += self.plan.connetion_limits
             self.user.save()
-            self.end_date = None # No EndDate for Fixed plans
+            self.end_date = None # No EndDate for Fixed 
+            self.status = 'expired' # connection include so status expired
 
         super().save(*args, **kwargs)
 

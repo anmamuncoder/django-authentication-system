@@ -20,7 +20,7 @@ POST http://127.0.0.1:8020/auth/register/
 Content-Type: application/json 
 
 {
-    "username":"admin2",
+    "username":"admin3",
     "first_name": "Nur mamun",
     "password":"123",
     "email":"anmamun0@gmail.com"
@@ -175,12 +175,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 # ----------------------------
 
 ###
-GET  http://127.0.0.1:8020/share/inventory/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY0MTYwODAyLCJpYXQiOjE3NjM1NTYwMDIsImp0aSI6ImZmNjg5MGYzYWQ2MzQ3ZThiZWQzNzdiNmM0MjM0NTk2IiwidXNlcm5hbWUiOiJhZG1pbiJ9.xDkgcWuYxi_B0-nLM_io7bsZv40EoHrNuP4_OuLLzNk
+PATCH  http://127.0.0.1:8020/share/inventory/d582470d-02c2-4a57-a190-661f3a19b874/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY0NzczMzA1LCJpYXQiOjE3NjQxNjg1MDUsImp0aSI6IjIxYzRiNTcwMWUxYjRjNDFhODk2MTU2ZWQ0NzUwM2NjIiwidXNlcm5hbWUiOiJhZG1pbiJ9.xLU0cRD6CWStVzUoYPd9dkRSRLUiRJ2Arx3cWu1AZGo
 Content-Type: application/json 
 
 {  
-    "shared_user": "admin4" 
+    "shared_user": "admin3" 
 }
 
 # -----------------------

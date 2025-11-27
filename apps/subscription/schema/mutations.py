@@ -3,7 +3,7 @@ import graphql_jwt
 from graphene import relay
 from graphql_relay import from_global_id
 from .types import TransactionType
-from apps.subscription.models import Transaction, SubscriptionPlan
+from apps.subscription.models import Transaction, SubscriptionPlan,UserSubscription
 from apps.users.models import User
 
 class AuthMutations(graphene.ObjectType):
@@ -41,6 +41,10 @@ class CreateTransactionMutation(graphene.Mutation):
 
         plan = SubscriptionPlan.objects.get(pk=input.plan_id)
 
+        already_paln_active = UserSubscription.objects.filter(user=user,plan=plan,status='active').exists()
+        if already_paln_active:
+            return Exception(f"Your {plan.name} ${plan.price} - Plan already Activated!")
+        
         transaction = Transaction.objects.create(
             user=user, plan=plan,
             amount=plan.price,

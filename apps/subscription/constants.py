@@ -13,6 +13,6 @@ SELECT_PLAN_TYPE = [
 
 SELECT_TRANSACTION_STATUS = [
     ('pending', 'Pending'),
-    ('conformed', 'Conformed'),
+    ('confirmed', 'Confirmed'),
     ('rejected', 'Rejected'),
 ]
