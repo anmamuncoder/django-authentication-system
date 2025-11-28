@@ -1,9 +1,9 @@
 import graphene
-from apps.subscription.schema.queries import SubscriptionPlanQuery,TransactionQuery
+from apps.subscription.schema.queries import SubscriptionPlanQuery,UserSubscriptionQuery,TransactionQuery
 from apps.subscription.schema.mutations import AuthMutations,TransactionMutation
 
 # Combine all query classes
-class Query(SubscriptionPlanQuery, TransactionQuery, graphene.ObjectType):
+class Query(SubscriptionPlanQuery,UserSubscriptionQuery, TransactionQuery, graphene.ObjectType):
     pass 
 
 # Combine all mutation classes

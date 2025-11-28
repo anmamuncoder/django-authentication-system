@@ -3,6 +3,7 @@ from django.utils import timezone
 from apps.inventory.models import BaseModel 
 from .constants import SELECT_PLAN_STATUS, SELECT_PLAN_TYPE, SELECT_TRANSACTION_STATUS
 from apps.users.models import User
+from django.core.exceptions import ValidationError
 # Create your models here.
 
 # --------------------------
@@ -26,15 +27,10 @@ class SubscriptionPlan(BaseModel):
 class UserSubscription(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='subscriptions')
     plan = models.ForeignKey(SubscriptionPlan, on_delete=models.CASCADE, related_name='user_subscriptions')
-    status = models.CharField(max_length=20, choices=SELECT_PLAN_STATUS, default='active')
+    status = models.CharField(max_length=20, choices=SELECT_PLAN_STATUS, null=True)
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateTimeField(blank=True, null=True, editable=False)
-
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=['user'],condition=models.Q(status='active'),name='per_user_single_subscription_active')
-        ] 
-
+  
     @property
     def remaining_days(self):
         if not self.end_date:
@@ -47,28 +43,39 @@ class UserSubscription(BaseModel):
         # --------------------------------------
         # when update , already object created, so not will apply save() logic
         # --------------------------------------
-        is_new = self.pk is None
-        if not is_new:
+        if self.pk is None:
+            self.clean()
             return super().save(*args, **kwargs)
 
         # --------------------------------------
         # when first time object create
         # --------------------------------------
         # Set end_date based on plan type
-        if self.plan.type == 'time_based':
-            if not self.end_date:
+        if self.status == 'active':
+            if self.plan.type == 'time_based':
                 self.end_date = timezone.now() + timezone.timedelta(days=self.plan.duration_days)
-                self.status = 'active'
 
-        # Update user's connections if plan is fixed 
-        elif self.plan.type == 'fixed':
-            self.user.connections += self.plan.connetion_limits
-            self.user.save()
-            self.end_date = None # No EndDate for Fixed 
-            self.status = 'expired' # connection include so status expired
-
+            # Update user's connections if plan is fixed 
+            elif self.plan.type == 'fixed':
+                self.user.connections += self.plan.connetion_limits
+                self.user.save() 
+                self.status = 'expired' # connection include so status expired
+                
+        self.clean()
         super().save(*args, **kwargs)
 
+    def clean(self):
+        if self.status == 'active':
+            qs = UserSubscription.objects.filter(user=self.user, status='active')
+            if self.pk:
+                qs = qs.exclude(pk=self.pk)  # exclude self if updating
+            if qs.exists():
+                raise ValidationError("This user already has an active subscription.")
+        if self.status == 'expired':
+            self.end_date = timezone.now()
+
+        super().clean()
+    
     def __str__(self):
         return f"{self.user.username} - {self.plan.name} - {self.status}"
     
