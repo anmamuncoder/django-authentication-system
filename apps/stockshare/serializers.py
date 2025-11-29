@@ -21,7 +21,9 @@ class ShareWithSerializer(ModelSerializer):
             raise serializers.ValidationError({"shared_user": "User not found"})
         if user1 == user2:
             raise serializers.ValidationError("You cannot share with yourself.")
- 
+        if ShareWith.objects.filter(shared_user=user2).exists():
+            raise serializers.ValidationError(f"{user2.username} already connected with you")
+            
         attrs["user2"] = user2  
         return attrs
     

@@ -30,3 +30,9 @@ class IsSubscriptionActive(BasePermission):
             return True
  
         return False
+     
+class IsOwner(BasePermission):
+    message = "You can only delete your own connections."
+
+    def has_object_permission(self, request, view, obj):
+        return obj.owner == request.user

@@ -7,15 +7,14 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import PermissionDenied
 from rest_framework import status
 
-from .permissions import IsSubscriptionActive
+from .permissions import IsSubscriptionActive ,IsOwner
 # Create your views here.
 
-class ShareWithView(ModelViewSet):
-    queryset = ShareWith.objects.all()
+class ShareWithView(ModelViewSet): 
     serializer_class = ShareWithSerializer
-    permission_classes = [IsAuthenticated,IsSubscriptionActive]
+    permission_classes = [IsAuthenticated,IsOwner,IsSubscriptionActive]
 
-    def handle_exception(self, exception):
+    def handle_exception(self, exception): 
         if isinstance(exception, PermissionDenied): 
             for permission in self.permission_classes:
                 if hasattr(permission, 'message'):
@@ -29,9 +28,15 @@ class ShareWithView(ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-    def perform_destroy(self, instance):
+    def perform_update(self, serializer):
+        raise PermissionDenied("You cant't update shared connecitons!")
+    
+    def perform_destroy(self, instance): 
         user1 = instance.owner
         user2 = instance.shared_user
  
         ShareWith.objects.filter(owner=user1, shared_user=user2).delete()
         ShareWith.objects.filter(owner=user2, shared_user=user1).delete()
+        
+        return Response(status=status.HTTP_204_NO_CONTENT)
+        
