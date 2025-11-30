@@ -26,6 +26,8 @@ tags:
     description: Endpoints for managing inventory and stock records.
   - name: Websocket
     description: Endpoints for managing inventory and stock records.
+  - name: GraphQL
+    description: GraphQL for managing inventory and stock records.
 
 
 paths:
@@ -814,74 +816,7 @@ paths:
         '404':
           description: Shared connection not found
  
-    put:
-      tags:
-        - ShareMe
-      summary: Update a shared connection
-      description: Update a shared connection (rarely used; normally only owner can update)
-      security:
-        - bearerAuth: []
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-            format: uuid 
-        - name: Authorization
-          in: header
-          required: true
-          description: Bearer token for authentication
-          schema:
-            type: string
-            example: "Bearer <token>"
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ShareWith'
-      responses:
-        '200':
-          description: Shared connection updated successfully
-        '403':
-          description: Not allowed / permission denied
-        '404':
-          description: Shared connection not found
-
-    patch:
-      tags:
-        - ShareMe
-      summary: Partially update a shared connection
-      security:
-        - bearerAuth: []
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-            format: uuid 
-        - name: Authorization
-          in: header
-          required: true
-          description: Bearer token for authentication
-          schema:
-            type: string
-            example: "Bearer <token>"
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ShareWith'
-      responses:
-        '200':
-          description: Shared connection updated successfully
-        '403':
-          description: Not allowed / permission denied
-        '404':
-          description: Shared connection not found
+    
 
     delete:
       tags:
@@ -918,6 +853,8 @@ paths:
  
   /ws/inventories/{username}/:
     get:
+      tags:
+        - Websocket
       summary: Connect to Inventory WebSocket for a specific user
       description: |
         Connect to the WebSocket to receive real-time inventory updates. 
@@ -1035,8 +972,38 @@ paths:
                     message: "User with username 'admin69' does not exist."
                     server_time: "2025-11-22 16:30:29"
 
+# ----------------- GraphQL -------------------------
+ 
+  /api/graphql/:
+    get:
+      tags:
+        - GraphQL
+      summary: List all shared connections of the authenticated user
+      description: |
+        GraphQL API for Subscription and Transaction Management.
+        Requires a valid JWT Bearer token in the `Authorization` header for authenticated queries and mutations.
 
+        ### Queries
+        - `subscriptionPlans`: Fetch all active subscription plans.
+        - `userSubscriptions`: Fetch all subscriptions of the authenticated user.
+        - `transaction`: Fetch all transactions of the authenticated user.
 
+        ### Mutations
+        - `createTransaction`: Create a new transaction for a subscription plan of the authenticated user.
+        - `tokenAuth`: Obtain a JWT token by providing username and password.
+        - `verifyToken`: Verify an existing JWT token.
+        - `refreshToken`: Refresh an existing JWT token.
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          description: Bearer token for authentication
+          schema:
+            type: string
+            example: "JWT <token>"
+      responses:
+        '200':
+          description: List of shared connections 
  
 components:
   schemas:

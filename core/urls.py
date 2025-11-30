@@ -35,7 +35,7 @@ apps_urls = [
 # GraphQL URL patterns
 graphql_urlpatterns = [ 
     # csrf_exempt =  Disable CSRF for this view so that POST requests from Postman or frontend work easily
-    path('api/graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True, schema=schema))),
+    path('api/graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True, schema=schema)),name="graphql_endpoint"),
     
 ]
 

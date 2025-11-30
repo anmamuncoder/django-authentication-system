@@ -1,7 +1,9 @@
 import factory
-from apps.stockshare.models import ShareWith
-from apps.users.tests.factories import UserFactory
 from factory import fuzzy
+# Data Model
+from apps.stockshare.models import ShareWith
+# Factory Model
+from apps.users.tests.factories import UserFactory
 
 class ShareWithFactory(factory.django.DjangoModelFactory):
     class Meta:

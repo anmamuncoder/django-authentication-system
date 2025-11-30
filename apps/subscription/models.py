@@ -61,7 +61,9 @@ class UserSubscription(BaseModel):
                 self.user.save() 
                 self.status = 'expired' # connection include so status expired
                 
-        self.clean()
+        if self.status == 'expired':
+            self.end_date = timezone.now() 
+
         super().save(*args, **kwargs)
 
     def clean(self):
